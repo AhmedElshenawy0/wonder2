@@ -1,0 +1,89 @@
+.collections {
+  padding: 0 25px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+.collections-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  aspect-ratio: 1/1.3;
+}
+.collections-card img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.collections-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.301);
+  z-index: 9;
+}
+.collections-card h3 {
+  font-size: 40px;
+  font-weight: 500;
+  z-index: 9;
+  color: white;
+}
+.collections-card button {
+  font-size: 14px;
+  padding: 10px 15px;
+  background-color: rgb(245, 244, 244);
+  z-index: 9;
+}
+
+@media (min-width: 1500px) {
+  .collections {
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  }
+}
+@media (min-width: 1800px) {
+  .collections {
+    grid-template-columns: repeat(auto-fill, minmax(580px, 1fr));
+  }
+}
+@media (min-width: 2390px) {
+  .collections {
+    grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+  }
+}
+@media (min-width: 2875px) {
+  .collections {
+    grid-template-columns: repeat(auto-fill, minmax(850px, 1fr));
+  }
+}
+@media (max-width: 1280px) {
+  .collections {
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+    width: 100%;
+  }
+}
+@media (max-width: 1024px) {
+  .collections {
+    padding: 0 25px;
+  }
+  .collections {
+    padding: 0 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    width: 100%;
+  }
+}

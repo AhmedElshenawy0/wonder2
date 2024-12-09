@@ -1,0 +1,69 @@
+.image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+}
+.overlay {
+  clip-path: circle(0.1% at 0 100%); /* clip-path: circle(1.8% at 0 100%); */
+  opacity: 0;
+}
+.card:hover .overlay {
+  clip-path: circle(141.3% at 0 100%);
+  opacity: 1;
+}
+
+.wraper {
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  padding: 0 20px;
+  aspect-ratio: 1/0.31;
+}
+.best-seller .swiper-pagination,
+.best-seller .swiper-pagination-clickable,
+.best-seller .swiper-pagination-bullets,
+.best-seller .swiper-pagination-horizontal,
+.best-seller .swiper-pagination-lock {
+  display: block !important;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1680px) {
+  .wraper {
+    aspect-ratio: 1/0.35;
+  }
+}
+@media (max-width: 1200px) {
+  .wraper {
+    aspect-ratio: 1/0.4;
+  }
+}
+@media (max-width: 1024px) {
+  .best-seller .swiper-pagination,
+  .best-seller .swiper-pagination-clickable,
+  .best-seller .swiper-pagination-bullets,
+  .best-seller .swiper-pagination-horizontal,
+  .best-seller .swiper-pagination-lock {
+    margin-bottom: 20px;
+  }
+  .wraper {
+    aspect-ratio: 1/0.5;
+  }
+}
+@media (max-width: 767px) {
+  .wraper {
+    aspect-ratio: 1/1.1;
+  }
+  .swiper-slide {
+    transition: all 0.5s;
+  }
+  .swiper-slide-active {
+    opacity: 1;
+  }
+}
+@media (max-width: 550px) {
+  .wraper {
+    aspect-ratio: 1/1.2;
+  }
+}

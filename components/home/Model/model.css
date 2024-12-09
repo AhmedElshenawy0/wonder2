@@ -1,0 +1,171 @@
+.model {
+  margin: 0px 0;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  height: fit-content;
+}
+.model .image {
+  flex: 1;
+  height: fit-content;
+}
+
+.model .image .main-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.model .desc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 40px;
+}
+.model h1 {
+  font-size: 56px;
+  font-weight: 500;
+  max-width: 70%;
+  margin: 10px 0 0 0;
+  line-height: 65px;
+}
+
+.model p {
+  max-width: 60%;
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 16px;
+  line-height: 25px;
+}
+.model button {
+  font-size: 14px;
+  padding: 12px 24px;
+  background-color: #000;
+  color: white;
+  margin-top: 25px;
+}
+.model-image {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 250px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+@media (max-width: 1200px) {
+  .model .desc {
+    gap: 30px;
+    padding: 20px 50px 50px 0;
+  }
+  .model h1 {
+    font-size: 50px;
+    max-width: 75%;
+  }
+}
+@media (max-width: 1024px) {
+  .model .desc {
+    gap: 30px;
+    padding: 20px 30px 40px 0;
+    justify-content: space-around;
+  }
+  .model h1 {
+    font-size: 30px;
+    max-width: 75%;
+    margin: 6px 0 0 0;
+    line-height: 45px;
+  }
+  .model p {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .model button {
+    font-size: 12px;
+  }
+  .model-image {
+    width: 155px;
+    object-fit: cover;
+  }
+}
+@media (max-width: 767px) {
+  .model {
+    display: none;
+  }
+}
+/* Start Responsive Model Style */
+
+.responsive-model {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+  align-items: center;
+  gap: 110px;
+}
+.responsive-model .top-side {
+  background-image: url("https://media.everlane.com/image/upload/c_scale,dpr_2.0,f_auto,q_auto,w_auto/c_limit,w_600/v1/i/ec212c45_daa2.jpg");
+  height: 580px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  position: relative;
+  padding-top: 30px;
+}
+.responsive-model .bottom-side {
+  width: 100%;
+  color: black;
+}
+.responsive-model span {
+  font-size: 16px;
+  font-weight: 500;
+}
+.responsive-model h1 {
+  font-size: 32px;
+  font-weight: 500;
+  padding: 0 50px;
+}
+.responsive-model img {
+  width: 70%;
+  max-width: 464px;
+  aspect-ratio: 1/1.05;
+  position: absolute;
+  bottom: -80px;
+  right: 50%;
+  transform: translatex(50%);
+}
+.responsive-model .bottom-side p {
+  padding: 0 30px;
+}
+.responsive-model button {
+  font-size: 14px;
+  padding: 12px 24px;
+  background-color: #000;
+  color: white;
+  margin-top: 25px;
+}
+@media (min-width: 767px) {
+  .responsive-model {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .responsive-model .top-side {
+    height: 490px;
+  }
+  .responsive-model h1 {
+    font-size: 32px;
+    font-weight: 500;
+    padding: 0 15px;
+  }
+  .responsive-model .bottom-side p {
+    padding: 0 20px;
+  }
+}

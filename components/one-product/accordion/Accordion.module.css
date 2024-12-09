@@ -1,0 +1,38 @@
+/* styles/Accordion.module.css */
+.accordion {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 25px;
+}
+
+.accordionItem {
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+  margin-bottom: 10px; /* Space between items */
+  overflow: hidden; /* Ensures content is contained */
+}
+
+.accordionHeader {
+  background-color: #ffffff; /* Background color */
+  padding: 15px; /* Padding for clickable area */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  display: flex; /* Flexbox for alignment */
+  justify-content: space-between; /* Space between title and icon */
+  align-items: center; /* Center vertically */
+}
+
+.accordionContent {
+  padding: 15px; /* Padding for content */
+  background-color: #cbf2d747; /* Background for content */
+}
+
+.toggleIcon {
+  font-size: 20px; /* Icon size */
+  transition: transform 0.3s; /* Smooth rotation */
+}
+@media (max-width: 1024px) {
+  .accordion {
+    width: 97%;
+    margin: 0 auto;
+  }
+}

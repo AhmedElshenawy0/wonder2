@@ -1,0 +1,12 @@
+.Toastify__toast-container {
+  width: fit-content;
+  border-radius: 30px !important;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+@media (max-width: 500px) {
+  .Toastify__toast-container {
+    width: 90%;
+    font-size: 13px;
+  }
+}

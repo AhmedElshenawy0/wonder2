@@ -1,0 +1,134 @@
+/* ==> Start One Product Style <== */
+
+.all-products-page-container {
+  display: flex;
+  align-items: start;
+  padding: 40px 0px 0px 0px;
+  /* gap: 15px; */
+  border-top: 1px solid #e1e0e0;
+  overflow: hidden;
+}
+.products-holder {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: calc(100% - 230px);
+}
+.page-title {
+  padding-bottom: 0px;
+}
+.page-title h3 {
+  font-size: 32px;
+  font-weight: 500;
+  padding: 0px 0;
+}
+@media (min-width: 1025px) {
+  .products-holder {
+    margin-right: 230px;
+  }
+}
+@media (max-width: 1024px) {
+  .all-products-page-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    gap: 15px;
+    border-top: none;
+    /* background-color: #ecebeb; */
+  }
+
+  .page-title h3 {
+    font-size: 24px;
+  }
+  .responsive-filter-buttom {
+    padding: 10px 15px;
+    border: 1px solid black;
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .responsive-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  .products-holder {
+    width: 100%;
+  }
+}
+/* ==> Start One Product Style <== */
+
+.all-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 20px;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+.view-info {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+  gap: 10px;
+  top: 0;
+  left: 0;
+  transition: all 1s;
+  background-color: rgba(0, 0, 0, 0.479);
+  clip-path: circle(0.5% at 0 100%);
+  opacity: 0;
+}
+.product:hover .view-info {
+  clip-path: circle(141.2% at 0 100%);
+  opacity: 1;
+  /* z-index: 9999999999999; */
+}
+.view-info button,
+.view-info a {
+}
+.product .image {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.color {
+  width: 13px !important;
+  height: 13px !important;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid rgb(211, 208, 208);
+}
+@media (min-width: 1160px) {
+  .all-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(213px, 1fr));
+  }
+}
+@media (min-width: 1400px) {
+  .all-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+@media (max-width: 1024px) {
+  .all-products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 15px;
+  }
+}
+@media (max-width: 500px) {
+  .all-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
