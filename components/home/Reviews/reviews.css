@@ -15,7 +15,7 @@
 }
 .slide img {
   width: 50%;
-  aspect-ratio: 1/1.1;
+  aspect-ratio: 1/0.9;
   object-fit: cover;
   padding-left: 10px;
 }
@@ -47,11 +47,11 @@
   font-weight: 500;
   line-height: 38px;
 }
-.swiper-wrapper{
+.swiper-wrapper {
   margin-bottom: 70px;
 }
 @media (max-width: 767px) {
-  .swiper-wrapper{
+  .swiper-wrapper {
     margin-bottom: 10px;
   }
   .slide {
@@ -72,7 +72,7 @@
 }
 
 .green-line-2 {
-  margin: 80px 0px;
+  margin: 10px 0px 30px 0px;
   background-color: #0441231f;
   height: 1px;
   width: 100%;

@@ -242,7 +242,7 @@ const CreateProductForm = () => {
 
           <button
             type="submit"
-            className="w-full transition-all duration-300 bg-green-800 text-center hover:bg-green-900 rounded-md p-2 my-3 text-white font-semibold"
+            className="w-full transition-all flex justify-center duration-300 bg-green-800 text-center hover:bg-green-900 rounded-md p-2 my-3 text-white font-semibold"
           >
             {loading ? (
               <div className="w-6 h-6 border-4 border-gray-200 border-t-transparent rounded-full animate-spin"></div>

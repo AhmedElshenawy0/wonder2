@@ -73,11 +73,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 50px;
+  /* gap: 50px; */
+  /* padding: 0 50px; */
 }
 .our-factories .image {
   width: 50%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 2/1.1;
   object-fit: cover;
 }
 .our-factories .desc {
@@ -137,8 +138,9 @@
   width: 100%;
   display: flex;
   align-items: center;
+  /* padding: 0 50px; */
+
   /* gap: 50px; */
-  padding: 0 50px;
 }
 .our-quality .image {
   width: 50%;

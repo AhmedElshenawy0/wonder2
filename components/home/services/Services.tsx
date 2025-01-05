@@ -1,88 +1,69 @@
 "use client";
 import { motion } from "framer-motion";
-import { TbTruckDelivery } from "react-icons/tb";
-import { RiCustomerServiceFill } from "react-icons/ri";
-import { HiSpeakerphone } from "react-icons/hi";
-import { BsBricks } from "react-icons/bs";
-import "./services.css";
+import { LiaShippingFastSolid } from "react-icons/lia";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
+import { FaRegHandshake } from "react-icons/fa6";
+import { SiDatabricks } from "react-icons/si";
 
 const Services = () => {
-  return (
-    <div className="services flex flex-col lg:flex-row lg:justify-between lg:items-center gap-7 px-12 py-10">
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{
-          delay: 0.4,
-          ease: "easeOut",
-          duration: 0.7,
-        }}
-        className="card flex flex-col items-center  text-center"
-      >
-        <HiSpeakerphone className="text-7xl text-[#003322] mb-6" />
-        <h3 className="text-2xl font-medium mb-2 ">قيمة كبيرة كل يوم</h3>
-        <p className=" lg:max-w-[400px]">اكتشف عروضنا وخصوماتنا اليومية</p>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{
-          delay: 0.5,
-          ease: "easeOut",
-          duration: 0.7,
-        }}
-        className="card flex flex-col items-center text-center"
-      >
-        <TbTruckDelivery className="text-7xl text-[#003322] mb-6" />
-        <h3 className="text-2xl font-medium mb-2 ">شحن واسترجاع بكل سهوله</h3>
-        <p className=" lg:max-w-[400px]">
-          استمتع بتجربة شحن سهله وإذا لما يعجبك المنتج، يمكنك اعادته لنا بكل
-          سهولة
-        </p>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{
-          delay: 0.6,
-          ease: "easeOut",
-          duration: 0.7,
-        }}
-        className="card flex flex-col items-center  text-center"
-      >
-        <RiCustomerServiceFill className="text-7xl text-[#003322] mb-6" />
+  const services = [
+    {
+      icon: <FaRegHandshake />,
+      title: "قيمة كبيرة كل يوم",
+      description: "اكتشف عروضنا وخصوماتنا اليومية",
+    },
+    {
+      icon: <LiaShippingFastSolid />,
+      title: "شحن واسترجاع بسهوله",
+      description:
+        "استمتع بتجربة شحن سهله وإذا لم يعجبك المنتج، يمكنك اعادته لنا بكل سهولة",
+    },
+    {
+      icon: <TfiHeadphoneAlt />,
+      title: "خدمة عملاء استثنائية",
+      description: "فريقنا لخدمة العملاء مستعد دائما للمساعدة",
+    },
+    {
+      icon: <SiDatabricks />,
+      title: "بدائل بلا نهاية",
+      description:
+        "تشكيله كبيرة ورائعه من المنتجات التي تمت على يد مصممين من ثقافات ودول مختلفة",
+    },
+  ];
 
-        <h3 className="text-2xl font-medium mb-2 ">خدمة عملاء استثنائية</h3>
-        <p className=" lg:max-w-[400px]">
-          فريقنا لخدمة العملاء مستعد دائما للمساعدة
-        </p>
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{
-          delay: 0.7,
-          ease: "easeOut",
-          duration: 0.7,
-        }}
-        className="card flex flex-col items-center  text-center"
-      >
-        <BsBricks className="text-7xl text-[#003322] mb-6" />
-        <h3 className="text-2xl font-medium mb-2 ">بدائل بلا نهاية</h3>
-        <p className=" lg:max-w-[400px]">
-          تشكيله كبيره و رائعه من المنتجات، التي تمت على يد مصممين من ثقافات
-          ودول مختلفه
-        </p>
-      </motion.div>
-      {/* {loading ? (
-        <p>loading..........</p>
-      ) : (
-        <div>
-          {allProducts.map((ele) => (
-            <p>{ele.name}</p>
-          ))}
-        </div>
-      )} */}
+  return (
+    <div className="px-4 pb-20 darks:bg-gray-900 pt-20 max-lg:pt-0">
+      <div className="w-full h-1 bg-green-800 mb-20 hidden max-lg:block"></div>
+
+      {/* Services Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        {services.map((service, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.2 * index,
+              ease: "easeOut",
+              duration: 0.7,
+            }}
+            className="flex flex-col items-center text-center p-6 bg-white darks:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+          >
+            {/* Icon */}
+            <div className="text-green-800 text-6xl mb-4">{service.icon}</div>
+
+            {/* Title */}
+            <h3 className="text-xl font-bold text-gray-800 darks:text-white mb-2">
+              {service.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-600 darks:text-gray-300 leading-relaxed">
+              {service.description}
+            </p>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,5 @@
+.parent:hover .flip-child {
+  /* hover:skew-y-6 hover:sm:skew-y-0 hover:sm:rotate-6 */
+  transform: skewY(6);
+  transform: rotate(6);
+}

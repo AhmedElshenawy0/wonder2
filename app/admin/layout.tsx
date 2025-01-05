@@ -7,7 +7,10 @@ import { IoNotifications } from "react-icons/io5";
 import { Toaster } from "react-hot-toast";
 import { Cairo } from "next/font/google";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { middleware } from "@/middleware";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -21,11 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const path = usePathname();
+  const router = useRouter();
 
   const logOutFn = () => {
     localStorage.removeItem("userID");
-    const router = useRouter();
-
     router.replace("/");
   };
 

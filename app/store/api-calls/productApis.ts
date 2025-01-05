@@ -13,9 +13,7 @@ export interface AsyncThunkConfig {
 export const fetchProducts: AsyncThunk<ProductType[], void, AsyncThunkConfig> =
   createAsyncThunk("products/getProducts", async (_, { rejectWithValue }) => {
     try {
-      const { data }: { data: ProductType[] } = await axios.get(
-        "http://localhost:3000/api/product"
-      );
+      const { data }: { data: ProductType[] } = await axios.get("/api/product");
 
       return data;
     } catch (error: any) {
@@ -39,7 +37,7 @@ export const getOneProduct: any = createAsyncThunk(
     try {
       // API request
       const { data }: { data: ProductType } = await axios.get(
-        `http://localhost:3000/api/product/${productId}`
+        `/api/product/${productId}`
       );
 
       return data;
@@ -67,7 +65,7 @@ export const getProductByCategory: AsyncThunk<
     try {
       if (category!) {
         const response = await axios
-          .get(`http://localhost:3000/api/product/category/${category}`)
+          .get(`/api/product/category/${category}`)
           .then((res) => res.data);
         return response;
       }
@@ -83,7 +81,7 @@ export const updateProduct: AsyncThunk<ProductType, void, AsyncThunkConfig> =
     async (productId, { rejectWithValue }) => {
       try {
         const { data } = await axios
-          .put(`http://localhost:3000/api/product/${productId}`)
+          .put(`/api/product/${productId}`)
           .then((res) => res.data);
         return data;
       } catch (error: any) {
@@ -101,7 +99,7 @@ export const createProduct: AsyncThunk<
   "products/create-product",
   async (data: any, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/product", {
+      const response = await axios.post("/api/product", {
         name: data.name,
         price: +data.price,
         color: data.color,
@@ -126,9 +124,7 @@ export const deleteProduct: AsyncThunk<
   "products/delete-product",
   async (id: any, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/product/${id}`
-      );
+      const response = await axios.delete(`/api/product/${id}`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data || error.message);

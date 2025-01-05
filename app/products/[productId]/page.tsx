@@ -10,7 +10,7 @@ import { SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
+// import "swiper/css/navigation";
 import Card from "@/components/home/bestSection/Card";
 import dynamic from "next/dynamic";
 import {
@@ -21,6 +21,7 @@ import { Cairo } from "next/font/google";
 import { PiRecycle } from "react-icons/pi";
 import { FaTruckFast } from "react-icons/fa6";
 import { AppDispatch } from "@/app/store/store";
+import ProductCard from "@/components/all-Products/ProductCard";
 
 const cairo = Cairo({
   subsets: ["arabic"],
@@ -84,7 +85,7 @@ const ProductPage = ({ params }: { params: { productId: number } }) => {
   console.log();
 
   return (
-    <div className={`${cairo.className} ${styles.product_container} mt-[80px]`}>
+    <div className={`${cairo.className} ${styles.product_container} mt-[70px]`}>
       {oneProduct.name ? (
         <Product data={oneProduct} />
       ) : (
@@ -106,20 +107,27 @@ const ProductPage = ({ params }: { params: { productId: number } }) => {
         </div>
       )}
 
-      <section className={`${styles.about_product}`} dir="rtl">
-        <div className={`${styles.politics}`}>
-          <div className={`${styles.shipping}`}>
+      <section className="mb-4" dir="rtl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-lg shadow-sm">
+          {/* Shipping Discount */}
+          <div className="flex items-start gap-4">
             <FaTruckFast color="green" size={30} />
-            <div className={`${styles.shipping_desc}`}>
-              <h4>خصم الشحن</h4>
-              <p>سعر مخفض للشحن السريع للطلبات التي تزيد عن 3200 جنيه.</p>
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900">خصم الشحن</h4>
+              <p className="text-sm text-gray-700 mt-2">
+                سعر مخفض للشحن السريع للطلبات التي تزيد عن 3200 جنيه.
+              </p>
             </div>
           </div>
-          <div className={`${styles.easy_return}`}>
+
+          {/* Easy Return */}
+          <div className="flex items-start gap-4">
             <PiRecycle color="green" size={30} />
-            <div className={`${styles.return_desc}`}>
-              <h4>سهولة الإرجاع</h4>
-              <p>
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900">
+                سهولة الإرجاع
+              </h4>
+              <p className="text-sm text-gray-700 mt-2">
                 الإرجاع خلال 45 يومًا من تاريخ الشراء. الرسوم والضرائب غير قابلة
                 للاسترداد.
               </p>
@@ -127,12 +135,13 @@ const ProductPage = ({ params }: { params: { productId: number } }) => {
           </div>
         </div>
       </section>
+
       <Accordion items={aboutStyleItems} />
       <Accordion items={careItems} />
       <div
-        className={`{${styles.wraper} mt-6 mb-9 rounded border px-1 mx-[20px] }`}
+        className={`${styles.wraper} mt-6 rounded px-[20px] bg-neutral-50 pt-3`}
       >
-        <h2 className="mb-4 mt-3 font-medium text-center text-lg">
+        <h2 className="mb-4 mt-3 font-semibold text-center text-lg">
           إكتشف ما يناسبك
         </h2>
         {allProducts.length > 0 && (
@@ -142,6 +151,10 @@ const ProductPage = ({ params }: { params: { productId: number } }) => {
               clickable: true,
             }}
             breakpoints={{
+              200: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
               640: {
                 slidesPerView: 3,
                 spaceBetween: 20,
@@ -151,16 +164,18 @@ const ProductPage = ({ params }: { params: { productId: number } }) => {
                 spaceBetween: 20,
               },
               1024: {
-                slidesPerView: 4,
+                slidesPerView: 5,
                 spaceBetween: 10,
               },
             }}
+            centeredSlides={true}
             modules={[Pagination]}
             className=""
           >
             {allProducts.map((ele, i) => (
-              <SwiperSlide className="w-[200px]" key={ele.id}>
+              <SwiperSlide className="" key={ele.id}>
                 <Card key={ele.id} ele={ele} />
+                {/* <ProductCard product={ele} key={ele.id} /> */}
               </SwiperSlide>
             ))}
           </Swiper>

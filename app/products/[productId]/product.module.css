@@ -1,7 +1,7 @@
 /* Start Product Styles */
 
 .product_container {
-  padding: 15px 15px;
+  padding: 15px 0px 15px 0px;
 }
 .one_product_info {
   display: flex;
@@ -12,6 +12,9 @@
   width: 50%;
 }
 
+.product_container :global(.swiper-wrapper) {
+  margin-bottom: 50px !important;
+}
 .all_colors {
   display: flex;
   gap: 6px;
@@ -29,14 +32,14 @@
   width: 100%;
   aspect-ratio: 1/0.8;
   object-fit: cover;
-  object-position: center;
+  object-position: top;
 }
 
 .one_product_info .desc {
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   margin: 20px 0;
 }
 .one_product_info .desc .product_category {
@@ -46,7 +49,7 @@
 .one_product_info .desc h3 {
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
+  font-size: 21px;
 }
 .one_product_info .desc .size {
   display: flex;
@@ -64,7 +67,9 @@
 .one_product_info .desc .size span {
   padding: 2px 5px;
   font-size: 14px;
-  border: 1px solid black;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
 }
 
 /* Custom styles for buttons */
@@ -72,12 +77,12 @@
 .add_to_buttons {
   display: flex;
   gap: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .add_to_cart {
   background-color: #0c6447;
-  width: 50%;
+  width: 100%;
   color: white;
   padding: 10px 20px;
   font-size: 1rem;
@@ -106,7 +111,10 @@
     margin-top: 70px;
   }
 }
-@media (max-width: 1024px) {
+@media (max-width: 767px) {
+  .product_container :global(.swiper-wrapper) {
+    margin-bottom: 40px !important;
+  }
   .product_container {
     padding: 15px 10px;
   }
@@ -138,7 +146,7 @@
     width: 100%;
   }
   .one_product_info .desc h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -148,13 +156,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 20px 20px 30px 20px; */
 }
 .politics {
-  width: 50%;
+  /* width: 50%; */
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
 }
 .politics .shipping {
   display: flex;
@@ -219,7 +226,6 @@
   .about-product {
     align-items: start;
     flex-direction: column;
-    /* padding: 40px 15px; */
   }
   .politics {
     width: 100%;
@@ -279,8 +285,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* padding: 0 10px; */
   gap: 10px;
+  top: 0;
+  left: 0;
   transition: all 0.7s;
   clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
 }
@@ -290,7 +297,6 @@
 }
 .product img {
   width: 100%;
-  aspect-ratio: 1/1;
   object-fit: cover;
 }
 .product:hover .view-info {
@@ -303,14 +309,15 @@
 }
 .swiper-slide,
 .swiper-slide-active {
-  max-width: 220px !important ;
+  width: calc(20% - 13px) !important;
 }
+
 .swiper-pagination,
 .swiper-pagination-clickable,
 .swiper-pagination-bullets,
 .swiper-pagination-horizontal,
 .swiper-pagination-lock {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 @media (min-width: 1220px) {
   .more-to-love {
@@ -336,7 +343,6 @@
     flex-wrap: wrap;
     width: fit-content;
     gap: 15px;
-    /* overflow: auto; */
   }
   .more-to-love .product {
     width: 100%;
@@ -344,29 +350,35 @@
   .product img {
     aspect-ratio: 1/1;
   }
+  .swiper-slide,
+  .swiper-slide-active {
+    width: calc(25% - 9px) !important;
+  }
 }
 
 /* product slider styles */
 
 .image {
   width: 99%;
-  aspect-ratio: 1/1;
   object-fit: cover;
   cursor: pointer;
 }
 
 @media (max-width: 1024px) {
   .wraper {
-    aspect-ratio: 1/0.5;
+    /* aspect-ratio: 1/0.5; */
   }
 }
 @media (max-width: 767px) {
   .wraper {
-    aspect-ratio: 1/1.1;
+    /* aspect-ratio: 1/1.1; */
   }
   .swiper-slide {
     opacity: 0;
     transition: all 0.5s;
+  }
+  .best_seller :global(.swiper-slide) {
+    width: calc(100% - 9px) !important;
   }
   .swiper-slide-active {
     opacity: 1;
@@ -374,6 +386,6 @@
 }
 @media (max-width: 550px) {
   .wraper {
-    aspect-ratio: 1/1.2;
+    /* aspect-ratio: 1/1.2; */
   }
 }

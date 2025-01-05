@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 // ===> Get All Users
 
@@ -27,9 +28,7 @@ export const fetchUsers: any = createAsyncThunk(
   "products/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios
-        .get("http://localhost:3000/api/users")
-        .then((res) => res.data);
+      const response = await axios.get("/api/users").then((res) => res.data);
       return response;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || error.message);
@@ -50,19 +49,17 @@ export const register: any = createAsyncThunk(
   "products/register",
   async (data: RegisterData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/register",
-        {
-          userName: data.userName,
-          email: data.email,
-          password: data.password,
-          phone: data.phone,
-        }
-      );
+      const response = await axios.post("/api/users/register", {
+        userName: data.userName,
+        email: data.email,
+        password: data.password,
+        phone: data.phone,
+      });
       return response.data;
     } catch (error: any) {
-      console.error(error.response); // Log the error for debugging
-      return rejectWithValue(error.response || error || "Unknown error");
+      console.error(error.response);
+      // return error?.response?.data?.message;
+      return rejectWithValue(error?.response?.data?.message);
     }
   }
 );
@@ -76,18 +73,19 @@ export const login: any = createAsyncThunk(
   "products/login",
   async (data: LoginData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/users/login",
-        {
-          email: data.email,
-          password: data.password,
-        }
-      );
-      return response.data;
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+      if (res?.ok == true) {
+        return res;
+      } else {
+        throw new Error("");
+      }
     } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data?.message || error.message || "Unknown error"
-      );
+      console.error(error.response);
+      return rejectWithValue(error.response || error || "Unknown error");
     }
   }
 );
@@ -98,9 +96,7 @@ export const deleteUser: any = createAsyncThunk(
   "users/deleteUser",
   async (id: LoginData, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/users/${id}`
-      );
+      const response = await axios.delete(`/api/users/${id}`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data || error.message);

@@ -1,11 +1,15 @@
-import image1 from "@/public/images/010.webp";
+import image1 from "@/public/images/Chique Outfit.webp";
+import image2 from "@/public/images/care1 (3).webp";
+import image3 from "@/public/images/care1 (4).webp";
+import image4 from "@/public/images/Choker Neck Dip Hem Striped Top.webp";
+
 import Image from "next/image";
 import "./about.css";
-import image2 from "@/public/images/care1 (1).jpg";
+
 const page = () => {
   const dt = new Date().getHours();
   return (
-    <div className="about-container mt-[86px] lg:mt-[86px]" dir="rtl">
+    <div className="about-container lg:mt-[83px]" dir="rtl">
       <Image
         src={image2}
         alt=""
@@ -15,10 +19,10 @@ const page = () => {
       />
       <p className="about-paragraph">
         <i className=" fa-solid fa-quote-left"></i>
-        في Wonder نريد أن يكون الاختيار الصحيح سهلاً مثل ارتداء قميص رائع. ولهذا
-        السبب نتعاون مع أفضل المصانع الأخلاقية حول العالم. مصدر فقط أجود المواد.
-        وشارك هذه القصص معك، وصولاً إلى التكلفة الحقيقية لكل منتج نصنعه. إنها
-        طريقة جديدة لفعل
+        في RAVELLE نريد أن يكون الاختيار الصحيح سهلاً مثل ارتداء قميص رائع.
+        ولهذا السبب نتعاون مع أفضل المصانع الأخلاقية حول العالم. مصدر فقط أجود
+        المواد. وشارك هذه القصص معك، وصولاً إلى التكلفة الحقيقية لكل منتج نصنعه.
+        إنها طريقة جديدة لفعل
         <span style={{ position: "relative" }} className="right-quote ">
           الأشياء
           <i className="fa-solid fa-quote-right"></i>
@@ -36,7 +40,7 @@ const page = () => {
           width={300}
           height={300}
         />
-        <div className="desc">
+        <div className="desc pr-3">
           <h5>مصانعنا</h5>
           <h2>نهجنا الأخلاقي.</h2>
           <p>
@@ -52,17 +56,17 @@ const page = () => {
       {/* <!-- Start Our Quality --> */}
 
       <section className="our-quality">
-        <div className="desc">
+        <div className="desc  pr-3">
           <h5>الجودة</h5>
           <h2>مصممة لتستمر.</h2>
           <p>
-            في Everlane، نحن لسنا مهتمين بالاتجاهات. نريد منك أن ترتدي قطعنا
+            في RAVELLE, نحن لسنا مهتمين بالاتجاهات. نريد منك أن ترتدي قطعنا
             لسنوات، أو حتى لعقود قادمة. ولهذا السبب فإننا نستورد أجود المواد
             والمصانع لمنتجاتنا الخالدة - مثل سترات الكشمير من الدرجة الأولى،
             والأحذية الإيطالية، وتي شيرتات البيما البيروفية.
           </p>
         </div>
-        <Image src={image1} className="image" alt="" width={300} height={300} />
+        <Image src={image2} className="image" alt="" width={300} height={300} />
       </section>
 
       {/* <!-- Start Our Price --> */}
@@ -83,15 +87,15 @@ const page = () => {
       <section className="more-to-explore">
         <h2>إكتشف المزيد</h2>
         <div className="explore-products">
-          <Image src={image1} alt="" className="image" />
+          <Image src={image3} alt="" className="image" />
           <button>منتجاتنا</button>
         </div>
       </section>
       <section className="store-info mb-10">
         <div className="store-desc">
           <div>
-            <h3>Ras EL-Bar</h3>
-            <p>9 شارع 45، مدينة رأس البر، رأس البر،</p>
+            <h3>Egypt</h3>
+            <p>First 6th of October, Giza Governorate</p>
             <p
               style={{ color: `${dt >= 10 && dt <= 20 ? "green" : "red"}` }}
               className="time"
@@ -120,9 +124,9 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="store-images">
+        <div className="store-images gap-1">
           <Image src={image1} className="image" alt="" />
-          <Image src={image1} className="image" alt="" />
+          <Image src={image4} className="image" alt="" />
         </div>
       </section>
     </div>

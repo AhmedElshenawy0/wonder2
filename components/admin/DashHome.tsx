@@ -1,6 +1,5 @@
 "use client";
 import { FaUsers } from "react-icons/fa";
-import { NumberTicker } from "./NumberTicker";
 import { useSelector } from "react-redux";
 import { User_States } from "@/app/types/types";
 import { States } from "@/app/store/slices/product-slice";
@@ -18,14 +17,13 @@ const DashHome = () => {
     (state: { usersReducer: User_States }) => state.usersReducer
   );
 
-  // console.log(users);
-  // console.log(allProducts);
-
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     dispatch(fetchUsers());
     dispatch(fetchProducts());
   }, []);
+
   return (
     <div className="px-2 ">
       <div className="mt-7 flex gap-3 flex-wrap">

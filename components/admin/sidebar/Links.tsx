@@ -3,27 +3,42 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { FaHome } from "react-icons/fa";
+import { RxDashboard } from "react-icons/rx";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { LuUsers } from "react-icons/lu";
+import { BsPersonFillAdd } from "react-icons/bs";
+import { RiImageAddFill } from "react-icons/ri";
 
 const dashboarNav = [
   {
-    name: "الرئيسية",
+    name: "Ravelle",
+    path: "/",
+    icon: <FaHome />,
+  },
+  {
+    name: "لوحة التحكم",
     path: "/admin",
+    icon: <RxDashboard />,
   },
   {
     name: "المنتجات",
     path: "/admin/products",
+    icon: <MdProductionQuantityLimits />,
   },
   {
     name: "العملاء",
     path: "/admin/users",
+    icon: <LuUsers />,
   },
   {
     name: "إضافة منتج",
     path: "/admin/create-product",
+    icon: <RiImageAddFill />,
   },
   {
     name: "إضافة عميل ",
     path: "/admin/create-user",
+    icon: <BsPersonFillAdd />,
   },
 ];
 const Links = ({ openDashboardNav, setOpenDashboardNav }: any) => {
@@ -46,7 +61,7 @@ const Links = ({ openDashboardNav, setOpenDashboardNav }: any) => {
           }`}
           onClick={() => setOpenDashboardNav(false)}
         >
-          <FaHome />
+          {ele.icon}
           {ele.name}
         </Link>
       ))}

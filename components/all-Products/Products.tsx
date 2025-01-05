@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
-import ProductCard from "./ProductCard";
 import { States } from "@/app/store/slices/product-slice";
 import { useSelector } from "react-redux";
+import Card from "../home/bestSection/Card";
 
 const Products = () => {
   const { allProducts, filteredProduct, category } = useSelector(
@@ -29,12 +28,8 @@ const Products = () => {
       ) : (
         <section className="all-products">
           {category != "الكل"
-            ? filteredProduct?.map((ele) => (
-                <ProductCard product={ele} key={ele.id} />
-              ))
-            : allProducts?.map((ele) => (
-                <ProductCard product={ele} key={ele.id} />
-              ))}
+            ? filteredProduct?.map((ele) => <Card ele={ele} key={ele.id} />)
+            : allProducts?.map((ele) => <Card ele={ele} key={ele.id} />)}
         </section>
       )}
     </>

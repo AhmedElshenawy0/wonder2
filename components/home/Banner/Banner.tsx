@@ -2,62 +2,49 @@
 import { motion } from "framer-motion";
 import "./banner.css";
 import Image from "next/image";
-import image1 from "@/public/images/010.webp";
-import image2 from "@/public/images/09.webp";
-
-import { Suspense, useEffect, useState } from "react";
+import image1 from "@/public/images/Choker Neck Dip Hem Striped Top.webp";
+import image2 from "@/public/images/Pulôver Catarina - Cinza _ GG.webp";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
-const ToastWithSuspence = () => {
+const BannerContent = () => {
   const router = useRouter();
   const pathname = usePathname();
-
   const searchParams = useSearchParams();
-
   const toastMessage = searchParams.get("toastMessage");
+  const session = useSession();
+  // useEffect(() => {
+  //   if (session.data?.isAdmin == false) {
+  //     router.replace("/");
+  //   }
+  // }, []);
+
+  console.log(session.data?.user);
+  console.log(session.status);
+  console.log(session.update);
+  useEffect(() => {
+    if (searchParams.get("status") === "welcom") {
+      router.replace("/");
+      toast.success("Welcome", { duration: 6000 });
+      console.log("WELCOME");
+    }
+  }, [toast, searchParams, router]);
 
   useEffect(() => {
     if (toastMessage) {
       toast.error(toastMessage, {
         position: "top-center",
+        duration: 6000,
       });
       const newUrl = pathname;
       router.replace(newUrl, undefined);
     }
-  }, [toastMessage]);
-
-  return <></>;
-};
-
-const Banner = () => {
-  // ===> First Slide Show
-
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setCount((count) => count + 1);
-    }, 3000);
-
-    return () => clearInterval(timerId);
-  }, []);
-
-  // ===> Second Slide Show
-  const [count2, setCount2] = useState(0);
-
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setCount2((count2) => count2 + 1);
-    }, 2700);
-
-    return () => clearInterval(timerId);
-  }, []);
+  }, [toastMessage, pathname, router]);
 
   return (
-    <div className=" relative banner flex md:justify-start items-center">
-      <Suspense fallback={""}>
-        <ToastWithSuspence />
-      </Suspense>
+    <div className="relative banner flex md:justify-start items-center">
       <Image
         src={image1}
         alt="logo"
@@ -71,7 +58,7 @@ const Banner = () => {
         className="hidden md:block image-2"
       />
       <div className="absolute text-white h-fit py-4 md:pr-5 md:pl-24 w-[100%] text-center md:text-start flex justify-center flex-col items-center top-[50%] right-0 translate-y-[-50%]">
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{
@@ -79,13 +66,14 @@ const Banner = () => {
             ease: "easeOut",
             duration: 0.7,
           }}
-          className="font-semibold text-[10px]  max-w-[800px]"
         >
-          تألقي بجاذبية لا تقاوم مع أزيائنا الأنيقة
-        </motion.h2>
-        <p className="md:mb-12">wonder, لأنكي تستحقي</p>
+          <h2 className="font-semibold text-[10px]  max-w-[800px]">
+            تألقي بجاذبية لا تقاوم مع أزيائنا الأنيقة
+          </h2>
+          <p className="md:mb-12 text-center">Ravelle, لأنكي تستحقي</p>
+        </motion.div>
         <button
-          className={`banner-button text-[18px] lg:text-xl z-30 font-medium hidden md:block`}
+          className={`banner-button text-[16px] z-30 font-medium hidden md:block py-[10px] px-[20px] text-black bg-[#ffffff] hover:bg-neutral-200 transition-all duration-300`}
         >
           سجل الآن وابدأ التسوق
         </button>
@@ -99,5 +87,11 @@ const Banner = () => {
     </div>
   );
 };
+
+const Banner = () => (
+  <Suspense fallback={<div>Loading banner...</div>}>
+    <BannerContent />
+  </Suspense>
+);
 
 export default Banner;

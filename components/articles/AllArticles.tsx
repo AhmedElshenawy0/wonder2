@@ -1,13 +1,11 @@
-import { fetchArticles } from "@/app/store/api-calls/article-api";
 import Image from "next/image";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import image2 from "@/public/images/wear2.jpg";
+import image2 from "@/public/images/wear2.webp";
 import image3 from "@/public/images/body-shap-2.webp";
 import image4 from "@/public/images/body-shap-5.webp";
 import image5 from "@/public/images/body-shap-4.webp";
 import image6 from "@/public/images/body-shap-1.webp";
 import image7 from "@/public/images/body-shap-3.webp";
+
 const AllArticles = () => {
   return (
     <div>

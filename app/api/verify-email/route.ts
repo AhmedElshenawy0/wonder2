@@ -1,41 +1,56 @@
+import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const email: any = req.nextUrl.searchParams.get("email");
+  const token: any = req.nextUrl.searchParams.get("token");
+
+  // If Token Not Provided
+  if (!token) {
+    // Redirect To Login Page With No Token Query
+    return NextResponse.redirect(new URL("/login?error=NoToken", req.url));
+  }
+
+  // Verify Token
+  try {
+    const isVerified = jwt.verify(token, process.env.JWT_SECRET as string);
+  } catch (error: any) {
+    // Redirect To Login Page With Not Verified Query
+    return NextResponse.redirect(new URL("/login?error=Notverified", req.url));
+  }
+
+  // Get Email From Token
+  const { email }: any = jwt.decode(token);
 
   if (!email) {
     return NextResponse.json(
-      { message: "Query Email Required" },
-      { status: 400 }
-    );
-  }
-
-  const isUserExist = await prisma.user.findUnique({
-    where: { email: email },
-  });
-
-  if (!isUserExist) {
-    return NextResponse.json(
-      {
-        message: "Your Email Does not exist. Please sign Up First",
-      },
+      { message: "Email Dosen't exist" },
       { status: 404 }
     );
   }
 
+  // Get User From Database
+  const user = await prisma.user.findUnique({ where: { email: email } });
+
+  if (!user) {
+    return NextResponse.json(
+      { message: "User Dosen't Exist" },
+      { status: 404 }
+    );
+  }
+
+  // Update User To Verified ==> true
   try {
     await prisma.user.update({
-      where: { email: email },
-      data: { ...isUserExist, verified: true },
+      where: { email: user?.email },
+      data: { ...user, verified: true },
     });
 
-    console.log(isUserExist);
-
+    // Redirect To Login Page With True Query
     return NextResponse.redirect(new URL("/login?auth=true", req.url));
   } catch (error) {
     return NextResponse.json(
-      { message: "Method not allowed." },
+      { message: "Internal Server Error." },
       { status: 500 }
     );
   }

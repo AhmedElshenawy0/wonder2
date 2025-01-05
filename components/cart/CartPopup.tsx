@@ -44,7 +44,7 @@ const CartPopup = () => {
         <div
           className={`${
             openCart ? "open-cart-popup" : "close-cart-popup"
-          }   h-[calc(100%-86px)] fixed top-[86px] transition-all duration-500 border-e-[2px]`}
+          }   h-[calc(100%-70px)] fixed top-[85px] transition-all duration-500 border-e-[2px]`}
         >
           <div className="flex flex-col bg-white shadow-2xl w-[100%] h-[100%]">
             <div className="flex-1 px-4 pt-2 pb-3 sm:px-6 h-[50%] overflow-y-auto">

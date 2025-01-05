@@ -1,32 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { JWTPayload } from "./utils/dots";
+import { useSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export const middleware = async (req: NextRequest) => {
-  const jwtToken = req.cookies.get("token");
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  if (!jwtToken) {
+  if (!token) {
     const url = req.nextUrl.clone();
     url.pathname = "/";
-    url.searchParams.set("toastMessage", " تحذير: لا يوجد توكن");
+    url.searchParams.set("toastMessage", "Forbidden Step");
     return NextResponse.redirect(url);
   }
 
-  const token = jwtToken?.value as string;
-
   try {
     // Verify JWT using `jose` (replaces `jsonwebtoken.verify`)
-    const { payload } = await jwtVerify(token, secret);
-    const userPayload = payload as JWTPayload;
-    console.log(userPayload);
 
     // Check if the user is an admin
-    if (userPayload.isAdmin === false) {
+    if (token?.role === false) {
       const url = req.nextUrl.clone();
       url.pathname = "/";
-      url.searchParams.set("toastMessage", " تحذير: أنت لست مالك لهذا الموقع");
+      url.searchParams.set("toastMessage", " تحذير: غير مصرح لك بالدخول ");
       return NextResponse.redirect(url);
     }
 
@@ -42,5 +39,5 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/api/admin/:path*"],
+  matcher: ["/admin", "/admin/:path*"],
 };

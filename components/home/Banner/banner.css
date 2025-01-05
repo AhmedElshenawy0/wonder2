@@ -22,11 +22,7 @@
   text-align: center;
   text-shadow: 0 0 2px rgb(0, 0, 0);
 }
-.banner-button {
-  background-color: #e0dfdf;
-  color: black;
-  padding: 10px 20px;
-}
+
 .image-1,
 .image-2 {
   aspect-ratio: 1/1.06;

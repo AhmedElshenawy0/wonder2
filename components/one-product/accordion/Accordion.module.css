@@ -1,8 +1,9 @@
 /* styles/Accordion.module.css */
 .accordion {
-  width: 100%;
-  max-width: 800px;
+  /* width: 100%; */
+  max-width: 1500px;
   margin: 0 25px;
+  padding: 0 15px;
 }
 
 .accordionItem {
@@ -10,6 +11,7 @@
   border-radius: 5px;
   margin-bottom: 10px; /* Space between items */
   overflow: hidden; /* Ensures content is contained */
+  height: fit-content;
 }
 
 .accordionHeader {
@@ -22,7 +24,7 @@
 }
 
 .accordionContent {
-  padding: 15px; /* Padding for content */
+  /* padding: 15px; Padding for content */
   background-color: #cbf2d747; /* Background for content */
 }
 

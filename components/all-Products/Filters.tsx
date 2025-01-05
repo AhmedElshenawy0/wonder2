@@ -23,7 +23,7 @@ const Filters = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { allProducts, priceFilter } = useSelector(
+  const { allProducts, priceFilter, productsCount } = useSelector(
     (state: { productsReducer: States }) => state.productsReducer
   );
 
@@ -45,9 +45,9 @@ const Filters = ({
 
   return (
     <div className="relative w-fit">
-      <div className={`filters bg-white shadow-xl p-6 z-10 overflow-hidden`}>
-        <p className="count">
-          {allProducts.length} {allProducts.length > 3 ? "منتجات" : "منتج"}
+      <div className={`filters bg-white shadow-xl z-10 overflow-hidden`}>
+        <p className="count text-green-500 flex justify-between items-center pb-2">
+          <span> {productsCount}</span> <span>منتج</span>
         </p>
 
         <div className="category-filter">
@@ -112,7 +112,7 @@ const Filters = ({
               htmlFor="jacket"
               className="text-[13px] font-medium text-gray-900 dark:text-gray-500"
             >
-              جواكيت
+              جواكت
             </label>
           </div>
           <div className="category-input">
@@ -136,7 +136,7 @@ const Filters = ({
         {/* <!-- Start Price Filter --> */}
 
         <div className="price-filter ">
-          <div className="flex flex-row-reverse justify-between items-center">
+          <div className="flex flex-row-reverse justify-between items-center mt-3">
             <input
               type="radio"
               id="low"
@@ -188,13 +188,13 @@ const Filters = ({
                   categoryFilter == "الكل" ? "bg-gray-200" : "bg-white"
                 }`}
               >
-                <span>الكل</span>
+                <span className="text-[12px]">الكل</span>
                 <IoCheckmarkCircleSharp
                   className={` ${
                     categoryFilter == "الكل" ? "block" : "hidden"
                   }`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"14px"}
                 />
               </label>
             </div>
@@ -213,13 +213,13 @@ const Filters = ({
                 }`}
                 htmlFor="Dresses"
               >
-                <span>فساتين</span>
+                <span className="text-[12px]">فساتين</span>
                 <IoCheckmarkCircleSharp
                   className={` ${
                     categoryFilter == "فساتين" ? "block" : "hidden"
                   }`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"14px"}
                 />
               </label>
             </div>
@@ -238,13 +238,13 @@ const Filters = ({
                 }`}
                 htmlFor="pants"
               >
-                <span>بناطيل</span>
+                <span className="text-[12px]">بناطيل</span>
                 <IoCheckmarkCircleSharp
                   className={` ${
                     categoryFilter == "بناطيل" ? "block" : "hidden"
                   }`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"14px"}
                 />
               </label>
             </div>
@@ -263,14 +263,14 @@ const Filters = ({
                 }`}
                 htmlFor="jacket"
               >
-                <span>جواكيت</span>
+                <span className="text-[12px]">جواكيت</span>
 
                 <IoCheckmarkCircleSharp
                   className={` ${
                     categoryFilter == "جاكيت" ? "block" : "hidden"
                   }`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"14px"}
                 />
               </label>
             </div>
@@ -289,13 +289,13 @@ const Filters = ({
                 }`}
                 htmlFor="shirt"
               >
-                <span>قمصان</span>
+                <span className="text-[12px]">قمصان</span>
                 <IoCheckmarkCircleSharp
                   className={` ${
                     categoryFilter == "قمصان" ? "block" : "hidden"
                   }`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"14px"}
                 />
               </label>
             </div>
@@ -311,11 +311,11 @@ const Filters = ({
                   priceFilter == "low" ? "bg-gray-200" : "bg-white"
                 }`}
               >
-                <span>أقل سعر</span>
+                <span className=" text-[10px]">أقل سعر</span>
                 <IoCheckmarkCircleSharp
                   className={` ${priceFilter == "low" ? "block" : "hidden"}`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"12px"}
                 />
               </label>
               <input
@@ -334,11 +334,11 @@ const Filters = ({
                   priceFilter == "high" ? "bg-gray-200" : "bg-white"
                 }`}
               >
-                <span>أعلي سعر</span>{" "}
+                <span className="text-[10px]">أعلي سعر</span>
                 <IoCheckmarkCircleSharp
                   className={`${priceFilter == "high" ? "block" : "hidden"}`}
                   color="green"
-                  fontSize={"17px"}
+                  fontSize={"12px"}
                 />
               </label>
               <input

@@ -1,110 +1,82 @@
 "use client";
-import { motion, useAnimation, useMotionValue } from "framer-motion";
-import Image from "next/image";
-import image from "../../../public/images/012.jpg";
-import "./features.css";
+import { motion } from "framer-motion";
+import {
+  FiHeadphones,
+  FiTag,
+  FiTrendingUp,
+  FiStar,
+  FiRotateCw,
+} from "react-icons/fi";
+
+const features = [
+  {
+    title: "خدمة عملاء متميزة",
+    description: "نقدم لك خدمة عملاء على مدار الساعة لتلبية جميع احتياجاتك.",
+    icon: <FiHeadphones size={32} />,
+  },
+  {
+    title: "أسعار تنافسية",
+    description: "نتعامل مباشرة مع المصانع لتقديم أسعار جملة لا تقبل المنافسة.",
+    icon: <FiTag size={32} />,
+  },
+  {
+    title: "أحدث صيحات الموضة",
+    description: "نحرص على تقديم أحدث التصميمات التي تلبي رغبات العميل.",
+    icon: <FiTrendingUp size={32} />,
+  },
+  {
+    title: "جودة عالية",
+    description: "نستخدم أجود الخامات لضمان راحة العميل وجودة المنتج.",
+    icon: <FiStar size={32} />,
+  },
+  {
+    title: "سياسة استرجاع سهلة",
+    description: "نقدم سياسة استرجاع سهلة في حالة وجود أي عيوب في المنتج.",
+    icon: <FiRotateCw size={32} />,
+  },
+];
+
 const Review = () => {
   return (
-    <div className="review flex flex-col mb-5 gap-5 md:gap-0 lg:h-[755px] bg-[#f4f8f0] lg:flex-row items-center md:mb-0 overflow-hidden py-0">
+    <div className="py-16 bg-gray-50 darks:bg-gray-900">
       <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{
-          delay: 0.5,
-          ease: "easeOut",
-          duration: 0.7,
-        }}
-        className=" flex-1 py-14 lg:py-0 px-8 lg:px-11 "
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="container mx-auto px-5 text-center"
       >
-        <div className="title text-center mb-7">
-          <h1 className="md:text-center text-start text-4xl font-semibold text-[#323e48]">
-            لماذا WONDER ؟
-          </h1>
-          <p className="text-xl font-medium mt-2 text-start md:text-center text-[#323e48]">
-            أبرز المميزات
-          </p>
-        </div>
-        <div className="desc  flex flex-col justify-start gap-5 ">
-          <motion.div
-            className=""
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 0.5,
-              ease: "easeOut",
-              duration: 0.7,
-            }}
-          >
-            <h2>خدمة عملاء متميزة</h2>
-            <p>
-              .نؤمن بأن العميل هو شريكنا في النجاح. لذلك نقدم لك خدمة عملاء علي
-              مدار الساعة لتلبية جميع احتياجاتك
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 0.5,
-              ease: "easeOut",
-              duration: 0.7,
-            }}
-            className="lg:mx-auto"
-          >
-            <h2>أسعار تنافسية</h2>
-            <p>
-              نحن نتعامل مباشرة مع المصانع مما يتيح لنا تقديم أسعار جملة لا تقبل
-              المنافسة.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 0.5,
-              ease: "easeOut",
-              duration: 0.7,
-            }}
-            className=""
-          >
-            <h2>أحدث صيحات الموضة</h2>
-            <p>
-              فريقنا علي دراية بأحدث صيحات الموضة العالمية ونحرص علي تقديم أحدث
-              التصميمات التي تلبي رغبات العميل
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 0.5,
-              ease: "easeOut",
-              duration: 0.7,
-            }}
-            className="lg:mx-auto"
-          >
-            <h2>جودة عالية</h2>
-            <p>
-              نستخدم أجود الخامات لضمان راحة العميل وجودة المنتج علي المدي
-              الطويل
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{
-              delay: 0.5,
-              ease: "easeOut",
-              duration: 0.7,
-            }}
-            className=""
-          >
-            <h2> سياسة إسترجاع سهلة </h2>
-            <p>
-              نثق بمنتجاتنا لذلك نقدم لك سياسة إسترجاع سهلة في حالة وجود أي عيوب
-              في المنتج
-            </p>
-          </motion.div>
+        {/* Section Title */}
+        <h1 className="text-4xl font-bold text-gray-800 darks:text-white mb-4">
+          لماذا <span className="text-green-800">RAVELLE</span>؟
+        </h1>
+        <p className="text-lg text-gray-600 darks:text-gray-300 mb-12">
+          أبرز المميزات التي نقدمها لك
+        </p>
+
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.5 }}
+              className="flex flex-col items-center p-6 border-r-4 border-green-800 bg-white darks:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"
+            >
+              {/* Icon */}
+              <div className="text-green-800 mb-4">{feature.icon}</div>
+
+              {/* Title */}
+              <h2 className="text-xl font-semibold text-gray-800 darks:text-white mb-2">
+                {feature.title}
+              </h2>
+
+              {/* Description */}
+              <p className="text-gray-600 darks:text-gray-300 text-center">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </motion.div>
     </div>

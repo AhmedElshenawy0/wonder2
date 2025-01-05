@@ -65,6 +65,7 @@
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 20px;
 }
+
 .product {
   display: flex;
   flex-direction: column;
@@ -129,6 +130,6 @@
 }
 @media (max-width: 500px) {
   .all-products {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }

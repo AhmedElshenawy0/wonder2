@@ -1,7 +1,7 @@
 import { register } from "@/app/store/api-calls/user-api";
 import { User_States } from "@/app/types/types";
-import { sendEmail } from "@/utils/mail";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -9,21 +9,16 @@ import { useDispatch } from "react-redux";
 const RegisterPopup = ({
   isSignUpOpen,
   onClose,
-  handleOpenSignInPopup,
-  isSignInOpen,
 }: {
   isSignUpOpen: boolean;
   onClose: () => void;
-  handleOpenSignInPopup: any;
-  isSignInOpen: any;
 }) => {
   if (!isSignUpOpen) return null;
 
-  const { loading, error } = useSelector(
+  const { loading, error, user } = useSelector(
     (state: { usersReducer: User_States }) => state.usersReducer
   );
   // Register
-  const [message, setMessage] = useState<string>("");
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
@@ -34,31 +29,32 @@ const RegisterPopup = ({
   });
   const registerUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await dispatch(register(formData));
-      if (error) {
-        toast.error(error);
-      }
-      onClose();
-    } catch (error) {
-      console.error("Registration failed:", error);
-    }
+    await dispatch(register(formData));
   };
 
-  const handlesendEmail = async () => {
-    const emailResponse = await fetch("/api/sendEmail", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: formData.email }),
-    });
+  useEffect(() => {
+    if (user?.userName) {
+      console.log("user: ", user);
 
-    if (!emailResponse.ok) throw new Error("Failed to send verification email");
+      toast.success(
+        "تم التسجيل بنجاح, أرسلنا لك رسالة تفعيل علي الإيميل الخاص بك",
+        { duration: 8000 }
+      );
+      router.replace("/login");
+    }
+    if (error) {
+      toast.error(error);
+      console.log("errrror: ", error);
+    }
+  }, [error, user, toast]);
 
-    console.log(emailResponse);
+  const router = useRouter();
+  const handleOpenSignInPopup = () => {
+    router.push("/login");
   };
   return (
-    <div className="fixed inset-0 z-[9999999999] flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg p-4 shadow-lg w-[90%] md:w-[60%] lg:w-96">
+    <div className="fixed inset-1 z-[9999999999] flex items-center justify-center">
+      <div className="bg-white rounded-lg p-4 shadow-lg w-[90%] max-h-[95vh] md:w-[60%] lg:w-96">
         <h2 className="text-2xl font-bold mb-3">التسجيل</h2>
         <form onSubmit={registerUser}>
           <div className="mb-2">
@@ -147,9 +143,9 @@ const RegisterPopup = ({
                 className="flex-1 bg-blue-600 text-white rounded-md py-1 hover:bg-blue-700 text-sm"
               >
                 {loading ? (
-                  <div className="w-6 h-6 border-4 border-gray-200 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-6 h-6 border-4 border-gray-200 border-t-transparent rounded-full animate-spin text-center"></div>
                 ) : (
-                  <span>تسجيل الدخول</span>
+                  <span>تسجيل</span>
                 )}
               </button>
             </div>
@@ -174,8 +170,7 @@ const RegisterPopup = ({
             </div>
           </div>
         </form>
-        <button onClick={handlesendEmail}>send mail</button>
-        {message && <p>{message}</p>}
+        <button>send mail</button>
       </div>
     </div>
   );

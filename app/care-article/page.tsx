@@ -3,7 +3,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="mt-[86px]">
+    <div className="mt-[83px]">
       <AllArticles />
     </div>
   );

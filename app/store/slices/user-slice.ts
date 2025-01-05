@@ -106,7 +106,6 @@ const userSlice = createSlice({
 
     builder.addCase(register.fulfilled, (state, action) => {
       console.log(action.payload);
-      console.log("fulfilled");
       state.user = action.payload.user;
       state.loading = false;
       state.user && localStorage.setItem("userID", action.payload.user.id);
@@ -117,27 +116,33 @@ const userSlice = createSlice({
     });
     builder.addCase(register.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
-      console.log("rejected");
-
+      state.error = action.payload ? action.payload : "error";
       console.log(action.payload);
+
+      toast.error(action.payload, {
+        duration: 8000,
+      });
     });
 
     // Extra Reducer for Login
 
     builder.addCase(login.fulfilled, (state, action) => {
-      // state.user && localStorage.setItem("token", action.payload.token);
-      state.user = action.payload;
+      action.payload.ok == true
+        ? (state.user = action.payload)
+        : (state.error = action.payload);
       console.log(action.payload);
+      state.loading = false;
+      state.error = "";
     });
     builder.addCase(login.pending, (state) => {
       console.log("pending......");
+      state.loading = true;
     });
     builder.addCase(login.rejected, (state, action) => {
       state.error = action.payload as string;
       toast.error(action.payload);
       console.log(action.payload);
-      console.log("error from login");
+      state.loading = false;
     });
 
     // Extra Reducer for Delete User

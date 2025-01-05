@@ -29,11 +29,18 @@ export type User = {
   mobileNumber?: number;
 };
 
+export interface ErrorType {
+  status: number;
+  data: {
+    message: string;
+  };
+}
+
 export type User_States = {
   users: User[];
   user?: User;
   loading: boolean;
-  error: string | undefined;
+  error: string | null;
   cart: any | undefined;
   openCart: boolean;
   usersCount: number;

@@ -1,10 +1,28 @@
 import bcrypt from "bcryptjs";
-import { type AuthOptions } from "next-auth";
+import { DefaultUser, User, type AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/utils/db";
-import toast from "react-hot-toast";
-import { v4 as uuidv4 } from "uuid";
+import { sendEmail } from "@/utils/mail";
+
+interface NewUser extends DefaultUser {
+  isAdmin?: boolean; // Add the isAdmin property
+}
+
+interface Session {
+  user: NewUser; // Make sure the session uses the extended User type
+}
+
+declare module "next-auth" {
+  interface Session {
+    user?: {
+      isAdmin?: boolean;
+      name?: string;
+      email?: string;
+      // other properties
+    };
+  }
+}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -20,26 +38,35 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials) return null;
-        try {
-          const user = await prisma.user.findUnique({
-            where: { email: credentials?.email },
-          });
-          if (!user) {
-            return `/register?error=userNotExist`; // This triggers the error page
-          }
-          const isPasswordValid = await bcrypt.compare(
-            credentials!.password,
-            user!.password
-          );
-          if (!isPasswordValid) throw new Error("Invalid password");
-          return {
-            ...user,
-            isAdmin: user?.isAdmin,
-          };
-        } catch (error) {
-          console.log("error: ", error);
-          return null;
+        const user = await prisma.user.findUnique({
+          where: { email: credentials?.email },
+        });
+        if (!user?.email) {
+          throw new Error("User does not exist");
         }
+
+        const isPasswordValid = await bcrypt.compare(
+          credentials!.password,
+          user!.password
+        );
+        if (!isPasswordValid) throw new Error("Invalid password");
+        if (user && !user.verified) {
+          sendEmail(user?.email);
+          throw new Error("User not verified");
+        }
+
+        const userWithAdmin = {
+          id: user.id.toString(), // Ensure id is a string
+          email: user.email,
+          userName: user.userName,
+          phone: user.phone,
+          company: user.company,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+          isAdmin: user.isAdmin,
+          verified: user.verified,
+        };
+        return userWithAdmin as User;
       },
     }),
   ],
@@ -63,6 +90,7 @@ export const authOptions: AuthOptions = {
           return `/register?error=notFound`; // This triggers the error page
         }
         if (dbUser && !dbUser.verified) {
+          sendEmail(profile?.email!);
           return `/login?error=notVerified`; // This triggers the error page
         }
 
@@ -74,19 +102,38 @@ export const authOptions: AuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        token.role = user.isAdmin;
+        const newUser = user as NewUser;
+
+        console.log("from jwt");
+
+        // console.log(user);
+        // console.log(token);
+
+        token.role = (user as { isAdmin?: boolean }).isAdmin;
       } else if (token.email) {
         const dbUser = await prisma.user.findUnique({
           where: { email: token.email },
         });
         if (dbUser) {
           token.role = dbUser.isAdmin;
+          token.beeb = dbUser.isAdmin;
         }
       }
       return token;
     },
     async session({ session, token }) {
-      if (session?.user) session.user.isAdmin = token.role;
+      if (session?.user) {
+        console.log("from session");
+        // console.log(session);
+        // console.log(token);
+        const newSessionUser = session.user as NewUser;
+
+        if (typeof token.role === "boolean") {
+          session.user.isAdmin = token.role ?? false;
+          session.user.name = token.name || "";
+          session.user.email = token.email || "";
+        }
+      }
       return session;
     },
   },

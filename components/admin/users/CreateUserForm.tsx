@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { States } from "@/app/store/slices/product-slice";
 import { register } from "@/app/store/api-calls/user-api";
+import { User_States } from "@/app/types/types";
 
 const CreateUserForm = () => {
   const [userName, setUserName] = useState("");
@@ -15,7 +16,7 @@ const CreateUserForm = () => {
 
   // Get loading state from RTK
   const { loading } = useSelector(
-    (state: { productsReducer: States }) => state.productsReducer
+    (state: { usersReducer: User_States }) => state.usersReducer
   );
 
   const dispatch = useDispatch();
@@ -106,12 +107,12 @@ const CreateUserForm = () => {
 
           <button
             type="submit"
-            className="w-full transition-all duration-300 bg-green-800 hover:bg-green-900 rounded-md p-2 my-3 text-white font-semibold"
+            className="w-full transition-all flex justify-center duration-300 bg-green-800 hover:bg-green-900 rounded-md p-2 my-3 text-white font-semibold"
           >
             {loading ? (
               <div className="w-6 h-6 border-4 border-gray-200 border-t-transparent rounded-full animate-spin"></div>
             ) : (
-              <span>Create User</span>
+              <span>Sign As A Admin</span>
             )}
           </button>
         </form>

@@ -15,14 +15,26 @@ const AccordionItem = ({ title, content }: { title: any; content: any }) => {
     <div className={styles.accordionItem}>
       <div className={styles.accordionHeader} onClick={toggleAccordion}>
         <h4>{title}</h4>
-        <span className={styles.toggleIcon}>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
+        <span className={styles.toggleIcon}>
+          {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+        </span>
       </div>
-      {isOpen && <div className={styles.accordionContent}>{content}</div>}
+      <div
+        className={`${styles.accordionContent} transition-all duration-500`}
+        style={{
+          clipPath: isOpen ? " circle(141.2% at 0 0)" : " circle(0.3% at 0 0)",
+          opacity: isOpen ? "1" : "0",
+          height: isOpen ? "fit-content" : "0px",
+          padding: isOpen ? "10px" : "0px",
+        }}
+      >
+        {content}
+      </div>
     </div>
   );
 };
 
-const Accordion = ({ items }: {items:any[]}) => {
+const Accordion = ({ items }: { items: any[] }) => {
   return (
     <div className={styles.accordion}>
       {items.map((item, index) => (

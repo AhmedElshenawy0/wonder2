@@ -1,29 +1,9 @@
-"use client";
-import image1 from "../../../public/images/06.webp";
-import image2 from "../../../public/images/06.png";
-// import image3 from "../../../public/images/04.webp";
-
-import { useEffect, useState } from "react";
+import image1 from "../../../public/images/16888567441291612.webp";
+import image2 from "../../../public/images/New versatile lapel long-sleeved soft jacket.webp";
 import "./model.css";
 import Image from "next/image";
 
-// const images = [image1, image2, image3];
-
 const Model = () => {
-  // ===>  Slide Show
-
-  // const [count, setCount] = useState(0);
-  // const [count2, setCount2] = useState(0);
-
-  // useEffect(() => {
-  //   const timerId = setInterval(() => {
-  //     setCount((count) => count + 1);
-  //   }, 3000);
-
-  //   return () => clearInterval(timerId);
-  // }, []);
-
-  // const image = images[count % images.length];
   return (
     <div>
       {/* <!-- Start Model Section--> */}

@@ -6,6 +6,10 @@ import LoginPopup from "../global/user/LoginPopup";
 import styles from "../../app/products/[productId]/product.module.css";
 import RegisterPopup from "../global/user/RegisterPopup";
 import { useSession } from "next-auth/react";
+import { PiRecycle } from "react-icons/pi";
+import { FaTruckFast } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Product = ({ data }: { data: ProductType }) => {
   const [selectedImage, setSelectedImage] = useState(data?.image);
@@ -20,14 +24,17 @@ const Product = ({ data }: { data: ProductType }) => {
   }, [data]);
 
   //  Handle Resgister Popup
+  const router = useRouter();
   const session = useSession();
+  console.log(session);
 
   const handleAddToCart = () => {
     if (session.data?.user?.email) {
       setProductInfo(true);
       setOpenSignUpPopup(false);
     } else {
-      setOpenSignUpPopup(true);
+      toast.error("سجل الان لتتمكن من إضافة المنتجات");
+      router.push("/login");
       setProductInfo(false);
     }
   };
@@ -58,98 +65,95 @@ const Product = ({ data }: { data: ProductType }) => {
     setOpenSignUpPopup(true);
   };
   return (
-    <section className={`${styles.product_container} relative`}>
-      <div className={`${styles.one_product_info}`} dir="rtl">
-        <div className={`${styles.image} relative`}>
+    <section className="relative flex flex-col items-center justify-center px-2 py-4 lg:p-8 bg-neutral-100 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-7xl bg-white rounded-lg overflow-hidden shadow-md">
+        <div className="relative flex justify-center items-center bg-gray-50 p-6">
           <Image
             width={500}
             height={500}
             src={selectedImage}
             alt="product"
-            className={`${styles.card_image} rounded`}
+            className="rounded transform transition-transform duration-300 hover:scale-105"
             priority
           />
         </div>
-        <div className={`${styles.desc}`}>
-          <p className={`${styles.product_category}`}>
+        <div className="flex flex-col gap-6 p-5 text-right">
+          <p className="text-sm text-gray-600 uppercase tracking-wide">
             حريمي / {data?.category}
           </p>
-
-          <h3 className=" lg:mb-2">
+          <h3 className="flex justify-between text-lg lg:text-xl font-bold text-gray-800">
             <span>{data?.name}</span>
-            <span>EGP{data.price}</span>
+            <span className="text-green-700">EGP{data.price}</span>
           </h3>
-
-          <div className={`${styles.all_colors} items-center`}>
-            <p className={`${styles.color}`}>
-              <strong>اللون : </strong>
+          <div className="flex items-center gap-2">
+            <p className="text-sm font-semibold text-gray-800">
+              <strong>اللون :</strong>
             </p>
             <span
-              className={`${styles.color} cursor-pointer`}
+              className={`w-4 h-4 rounded-full cursor-pointer shadow-sm`}
               style={{
                 backgroundColor: `${data.color}`,
-                border: `${data.color == "#ffffff" ? "1px solid black" : ""}`,
+                border: data.color === "#ffffff" ? "1px solid #000" : "",
               }}
               onClick={() => handleColorChange(data)}
             ></span>
             {data.available &&
-              data.available?.length > 0 &&
-              data.available?.map((val: any, index: number) => (
+              data.available.length > 0 &&
+              data.available.map((val: any, index: number) => (
                 <span
                   key={index}
-                  className={`${styles.color} cursor-pointer`}
+                  className={`w-4 h-4 rounded-full cursor-pointer shadow-sm`}
                   style={{
                     backgroundColor: `${val.color}`,
-                    border: `${val == "#ffffff" ? "1px solid black" : ""}`,
+                    border: val.color === "#ffffff" ? "1px solid #000" : "",
                   }}
                   onClick={() => handleColorChange(val)}
                 ></span>
               ))}
           </div>
-          <div className={`${styles.size} lg:mt-2`}>
-            <p>المقاسات المتاحة</p>
-            <div>
+          <div className="pb-3">
+            <p className="font-semibold text-gray-800">المقاسات المتاحة</p>
+            <div className="flex gap-2 mt-2">
               {data.sizes?.map((val: string) => (
-                <span className="" key={val}>
+                <span
+                  key={val}
+                  className="inline-block px-3 py-1 text-sm rounded-md  cursor-pointer bg-gray-800 text-white "
+                >
                   {val}
                 </span>
               ))}
             </div>
           </div>
-          <div className={`${styles.add_to_buttons}`}>
+          <p className="border-b border-gray-300 pb-5 text-sm text-gray-700 mt-2">
+            في حال لم يتناسب المقاس معك، نقدم لك سياسة إرجاع مرنة. يمكنك إرجاع
+            المنتج خلال 45 يومًا من تاريخ الشراء للحصول على المقاس الصحيح."
+          </p>
+          <div className="flex justify-end">
             <button
-              className={`${styles.add_to_cart}`}
+              className="px-6 py-2 w-full bg-green-700 text-white font-bold rounded-md shadow-md hover:bg-green-800 transition"
               onClick={handleAddToCart}
             >
               أضف إالي العربة
             </button>
-            {/* <button className={`${styles.add_to_cart}`}>
-              أضف إالي المفضلة
-            </button> */}
           </div>
         </div>
-        {openSignUpPopup && (
-          <RegisterPopup
-            isSignInOpen={openSignInPopup}
-            isSignUpOpen={openSignUpPopup}
-            onClose={closePopup}
-            handleOpenSignInPopup={handleOpenSignInPopup}
-          />
-        )}
-        {openSignInPopup && (
-          <LoginPopup
-            onClose={closePopup}
-            handleOpenSignUpPopup={handleOpenSignUpPopup}
-          />
-        )}
-        {productInfo && (
-          <ProductInfoPopup
-            product={data}
-            isOpen={productInfo}
-            onClose={closeProductInfo}
-          />
-        )}
       </div>
+      {openSignUpPopup && (
+        <RegisterPopup isSignUpOpen={openSignUpPopup} onClose={closePopup} />
+      )}
+      {openSignInPopup && (
+        <LoginPopup
+          onClose={closePopup}
+          handleOpenSignUpPopup={handleOpenSignUpPopup}
+        />
+      )}
+      {productInfo && (
+        <ProductInfoPopup
+          product={data}
+          isOpen={productInfo}
+          onClose={closeProductInfo}
+        />
+      )}
     </section>
   );
 };

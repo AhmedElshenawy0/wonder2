@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
-import image2 from "@/public/images/care1 (3).jpg";
-import image3 from "@/public/images/care1 (1).jpg";
-import image4 from "@/public/images/care1 (2).jpg";
-import image5 from "@/public/images/care1 (3).jpg";
-import image6 from "@/public/images/care1 (4).jpg";
+import image2 from "@/public/images/care1 (3).webp";
+import image3 from "@/public/images/care1 (1).webp";
+import image4 from "@/public/images/care1 (1).webp";
+import image5 from "@/public/images/care1 (3).webp";
+import image6 from "@/public/images/care1 (4).webp";
 import image7 from "@/public/images/care1 (5).jpg";
 
 const CareArticle = () => {

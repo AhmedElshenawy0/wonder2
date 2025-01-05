@@ -37,7 +37,7 @@ export const POST = async (request: NextRequest) => {
     if (user) {
       return NextResponse.json(
         {
-          message: "This user is already exist. Please Sign in",
+          message: "هذا الإيميل موجود بالفعل, سجل الان",
         },
         { status: 409 }
       );

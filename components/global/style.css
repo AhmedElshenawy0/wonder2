@@ -2,30 +2,14 @@ li {
   padding: 12px;
   font-weight: 500;
 }
-.links li a,
-li small {
-  font-size: 12px;
-}
 .links li {
   position: relative;
   height: 100%;
-  /* transition: 1s; */
+  /* padding: 12px; */
 }
-
-/* .links li::before {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 1px;
-  background-color: black;
-  left: 0;
-  bottom: 0;
-   transition: 0.5s;
-} */
 
 .links li:hover {
   text-shadow: 0px 0px 0.5px black;
-  /* border-bottom: 1px solid black; */
 }
 
 .logo {
@@ -39,54 +23,17 @@ li small {
 @media (max-width: 1023px) {
   .links-holder {
     background-color: rgb(255, 255, 255);
-    left: -12px;
-    top: 101%;
+    left: -4px;
+    top: 86px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-  }
-  /* .links {
-    display: flex;
-    justify-content: space-between;
-    gap: 1px;
-  } */
-
-  .links li {
-    /* background-color: white; */
-    /* flex: 1;
-    cursor: pointer; */
-  }
-  .active:hover {
-    /* background-color: #f5f4f4; */
-    /* border-radius: 10px; */
-  }
-  .current {
-    background-color: #f5f4f4;
-  }
-  .active {
-    /* border-bottom: 1px solid black; */
-    text-align: center;
+    border-radius: 0 8px 8px 0;
   }
 }
 
 @media (min-width: 1025px) {
   .navbar-bar {
     display: none;
-  }
-}
-@media (min-width: 1024px) {
-  .sub-new,
-  .sub-blog {
-    text-shadow: 0px 0px 0.5px black;
-    border-bottom: 1px solid black;
-  }
-  .current {
-    border-bottom: 1px solid black;
-  }
-}
-@media (min-width: 1200px) {
-  .links li a,
-  li small {
-    font-size: 13px;
   }
 }

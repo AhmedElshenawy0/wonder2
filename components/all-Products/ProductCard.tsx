@@ -8,7 +8,7 @@ import ProductInfoPopup from "../one-product/ProductInfoPopup";
 import { toast } from "react-toastify";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const [productInfoBeforeAdd, setProductInfoBeforeAdd] = useState(false);
 
   const handleAddToCart = () => {
@@ -25,8 +25,8 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   const closeProductInfo = () => setProductInfoBeforeAdd(false);
 
   return (
-    <div className="product" dir="rtl">
-      <div className=" w-full relative cursor-pointer">
+    <div className="product shadow-md" dir="rtl">
+      <div className="w-full relative cursor-pointer">
         <Image
           src={product?.image}
           alt={product?.name}
@@ -56,7 +56,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
       {/* // Register before add product */}
       {isPopupOpen && (
-        <RegisterPopup isOpen={isPopupOpen} onClose={closePopup} />
+        <RegisterPopup isSignUpOpen={isPopupOpen} onClose={closePopup} />
       )}
 
       {productInfoBeforeAdd && (
@@ -66,7 +66,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
           onClose={closeProductInfo}
         />
       )}
-      <div className="w-[100%] flex flex-col justify-start gap-2">
+      <div className="w-[100%] flex flex-col justify-center items-center gap-2">
         <h4 className="text-[13px] font-[600]">{product.name}</h4>
         <p className="text-[13px] font-[700] flex gap-2 items-center">
           {product.price} EGP
@@ -75,7 +75,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
           </span>
         </p>
       </div>
-      <div className="flex items-center gap-1 w-full">
+      <div className="flex items-center justify-center gap-1 w-full">
         {product.available?.map((product, i) => (
           <span
             key={i}
@@ -92,6 +92,9 @@ const ProductCard = ({ product }: { product: ProductType }) => {
           }}
         ></span>
       </div>
+      <button className="py-2 w-[60%] mt-2 mb-3 mx-auto rounded bg-black text-white text-sm">
+        أضف الآن
+      </button>
     </div>
   );
 };

@@ -11,7 +11,7 @@ import CartPopup from "@/components/cart/CartPopup";
 
 export default function Home() {
   return (
-    <div className="mt-[86px] lg:mt-[86px]">
+    <div className="mt-[70px]">
       <CartPopup />
       <Banner />
       <Sale />
