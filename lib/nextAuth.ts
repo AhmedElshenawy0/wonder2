@@ -9,10 +9,6 @@ interface NewUser extends DefaultUser {
   isAdmin?: boolean; // Add the isAdmin property
 }
 
-interface Session {
-  user: NewUser; // Make sure the session uses the extended User type
-}
-
 declare module "next-auth" {
   interface Session {
     user?: {
