@@ -73,8 +73,8 @@ const Nav = () => {
     <div className="fixed top-0 z-[999999999999] w-full ">
       <SubButton />
       <nav className="flex flex-col bg-white overflow-hidden">
-        <div className="">
-          <div className="border-b border-black h-fit mx-3 lg:mx-10 flex justify-between items-center min-h-[53px]">
+        <div className="border-b border-black">
+          <div className="h-fit mx-3 lg:mx-10 relative flex justify-between items-center min-h-[53px]">
             <div className="flex gap-4 lg:gap-5 items-center">
               {session.data?.user?.email ? (
                 <button
@@ -107,12 +107,18 @@ const Nav = () => {
             </div>
 
             {openNav ? (
-              <button onClick={() => setOpenNav(false)}>
-                <IoClose className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer" />
+              <button
+                className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer"
+                onClick={() => setOpenNav(false)}
+              >
+                <IoClose />
               </button>
             ) : (
-              <button onClick={() => setOpenNav(true)}>
-                <FaBarsStaggered className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer" />
+              <button
+                className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer"
+                onClick={() => setOpenNav(true)}
+              >
+                <FaBarsStaggered />
               </button>
             )}
             <div
