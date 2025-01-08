@@ -33,18 +33,18 @@ const LoginCom = () => {
     if (searchParams.get("error")) {
       if (searchParams.get("error") == "notVerified") {
         setGoogleLoading(false);
-        router.replace("/login");
+        router.replace(`${process.env.NEXTAUTH_URL}/login`);
         toast.error("Email not verified. Check Your Gmail", {
           duration: 6000,
         });
-        router.replace("/login");
+        router.replace(`${process.env.NEXTAUTH_URL}/login`);
       } else if (searchParams.get("error") == "NoToken") {
         setGoogleLoading(false);
-        router.replace("/login");
+        router.replace(`${process.env.NEXTAUTH_URL}/login`);
         toast.error("Warning: You Are Not Allowed", {
           duration: 6000,
         });
-        router.replace("/login");
+        router.replace(`${process.env.NEXTAUTH_URL}/login`);
       }
     }
   }, [searchParams, router, googleLoading]);
@@ -91,7 +91,7 @@ const LoginCom = () => {
         }
       }
       if (res?.ok) {
-        router.replace("/?status=welcom");
+        router.replace(`${process.env.NEXTAUTH_URL}/?status=welcom`);
         setLoading(false);
       }
     } catch (error) {
@@ -255,7 +255,7 @@ const LoginCom = () => {
             </button>
             <div
               onClick={handleAdminSignup}
-              className="mt-4 w-full py-2 bg-green-700 flex justify-center text-white rounded-lg font-semibold text-center cursor-pointer hover:bg-green-800 transition duration-200"
+              className="mt-4 w-full py-2 text-sm bg-green-700 flex justify-center text-white rounded-lg font-semibold text-center cursor-pointer hover:bg-green-800 transition duration-200"
             >
               {adminLoading ? (
                 <div className="w-6 h-6 border-4 border-gray-200 border-t-transparent rounded-full animate-spin"></div>
@@ -268,6 +268,7 @@ const LoginCom = () => {
           {/* Sign-Up Redirect */}
           <div className="mt-4 text-sm text-center text-gray-600 flex">
             <span>ليس لديك حساب؟</span>
+
             <div
               className="text-blue-500 border-b border-blue-500 ml-1 cursor-pointer"
               onClick={handleOpenSignUpPage}
