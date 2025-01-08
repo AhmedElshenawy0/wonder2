@@ -2,13 +2,16 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
+const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+
 export async function GET(req: NextRequest) {
   const token: any = req.nextUrl.searchParams.get("token");
 
   // If Token Not Provided
   if (!token) {
     // Redirect To Login Page With No Token Query
-    return NextResponse.redirect(new URL("/login?error=NoToken", req.url));
+
+    return NextResponse.redirect(`${baseUrl}/login?error=NoToken`);
   }
 
   // Verify Token
@@ -16,7 +19,7 @@ export async function GET(req: NextRequest) {
     const isVerified = jwt.verify(token, process.env.JWT_SECRET as string);
   } catch (error: any) {
     // Redirect To Login Page With Not Verified Query
-    return NextResponse.redirect(new URL("/login?error=Notverified", req.url));
+    return NextResponse.redirect(`${baseUrl}/login?error=Notverified`);
   }
 
   // Get Email From Token
@@ -47,7 +50,7 @@ export async function GET(req: NextRequest) {
     });
 
     // Redirect To Login Page With True Query
-    return NextResponse.redirect(new URL("/login?auth=true", req.url));
+    return NextResponse.redirect(`${baseUrl}/login?auth=true`);
   } catch (error) {
     return NextResponse.json(
       { message: "Internal Server Error." },

@@ -52,7 +52,7 @@ const LoginCom = () => {
   // =>> Redirect to home if session is authenticated
   useEffect(() => {
     if (session.data?.user?.email) {
-      router.replace("/");
+      router.replace(`${process.env.NEXTAUTH_URL}/`);
     }
   }, [session.data?.user, router]);
 
@@ -74,11 +74,14 @@ const LoginCom = () => {
       });
       if (res?.error) {
         if (res.error === "User does not exist") {
+          console.log("User does not exist");
+
           toast.error("Invalid email or password", {
             duration: 6000,
           });
           setLoading(false);
         } else if (res.error === "User not verified") {
+          console.log("User not verified");
           toast.error("Email not verified. Check Your Gmail", {
             duration: 6000,
           });
@@ -88,6 +91,8 @@ const LoginCom = () => {
             duration: 6000,
           });
           setLoading(false);
+          console.log("Invalid email or password...");
+          console.log(res.error);
         }
       }
       if (res?.ok) {
