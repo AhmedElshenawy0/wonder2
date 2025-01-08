@@ -67,7 +67,7 @@ const BannerContent = () => {
             duration: 0.7,
           }}
         >
-          <h2 className="font-semibold text-[10px]  max-w-[800px]">
+          <h2 className="font-semibold  max-w-[800px]">
             تألقي بجاذبية لا تقاوم مع أزيائنا الأنيقة
           </h2>
           <p className="md:mb-12 text-center">Ravelle, لأنكي تستحقي</p>
