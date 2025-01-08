@@ -36,9 +36,9 @@ const Nav = () => {
   const router = useRouter();
 
   // Close Nav When Click Outside
-  const ref = useOnclickOutside(() => {
-    setOpenNav(false);
-  });
+  // const ref = useOnclickOutside(() => {
+  //   setOpenNav(false);
+  // });
 
   // Getting OpenCart Function And Cart Array From RTK
   const { cart } = useSelector(
@@ -64,7 +64,6 @@ const Nav = () => {
 
   // Ensure That Render Done To Show Cart products Number
   const [isClient, setIsClient] = useState(false);
-  // const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -108,18 +107,16 @@ const Nav = () => {
             </div>
 
             {openNav ? (
-              <IoClose
-                className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer"
-                onClick={() => setOpenNav(false)}
-              />
+              <button onClick={() => setOpenNav(false)}>
+                <IoClose className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer" />
+              </button>
             ) : (
-              <FaBarsStaggered
-                className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer"
-                onClick={() => setOpenNav(true)}
-              />
+              <button onClick={() => setOpenNav(true)}>
+                <FaBarsStaggered className="lg:hidden absolute top-[50%] translate-y-[-50%] left-0 text-[20px] cursor-pointer" />
+              </button>
             )}
             <div
-              ref={ref}
+              // ref={ref}
               style={{
                 clipPath: openNav
                   ? "polygon(100% 0, 0 0, 0 100%, 100% 100%)"

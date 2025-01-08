@@ -7,6 +7,7 @@ import image3 from "../../../public/images/Women's hooded large pocket denim jac
 import image4 from "../../../public/images/Women White Chiffon Shirts Korean Elegant Pearl Loose Hollow Out Female Blouse Fashion New Chic Lace Patchwork Ladies Tops - WHITE _ XL.webp";
 import image5 from "../../../public/images/012.webp";
 import image7 from "../../../public/images/Stile Hijab.webp";
+import image8 from "../../../public/images/Crochet Sweater Dark Academia.webp";
 
 const Category = async () => {
   const images = [
@@ -30,6 +31,10 @@ const Category = async () => {
     {
       name: "جيب",
       image: image7,
+    },
+    {
+      name: "كينزات",
+      image: image8,
     },
   ];
 
