@@ -20,7 +20,7 @@ const LoginCom = () => {
   useEffect(() => {
     if (searchParams.get("auth")) {
       if (searchParams.get("auth") === "true") {
-        router.push(process.env.NEXTAUTH_URL as string);
+        router.replace(process.env.NEXTAUTH_URL as string);
         setTimeout(() => {
           toast.success("Authorized, You can login now", { duration: 5000 });
         }, 8000);
@@ -50,7 +50,7 @@ const LoginCom = () => {
   // =>> Redirect to home if session is authenticated
   useEffect(() => {
     if (session.data?.user?.email) {
-      router.push(process.env.NEXTAUTH_URL as string);
+      router.replace(process.env.NEXTAUTH_URL as string);
       console.log(session.data?.user);
     }
   }, [session.data?.user, router]);
@@ -167,7 +167,7 @@ const LoginCom = () => {
   };
   return (
     <div
-      className={`mt-[83px] testy flex justify-center items-center  min-h-screen p-3 ${styles.linearBg}`}
+      className={`mt-[83px] testy flex justify-center items-center min-h-screen p-3 ${styles.linearBg}`}
     >
       <div className="bg-white rounded-2xl shadow-xl p-3 w-full max-w-md">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6 cursor-pointer">
