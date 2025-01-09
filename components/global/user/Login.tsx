@@ -99,7 +99,7 @@ const LoginCom = () => {
         }
       }
       if (res?.ok) {
-        router.replace(`${baseUrl}/?status=welcom`);
+        router.replace(`/`);
         setLoading(false);
       }
     } catch (error) {
