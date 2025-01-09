@@ -1,12 +1,8 @@
 "use client";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { login } from "@/app/store/api-calls/user-api";
-import { useSelector } from "react-redux";
-import { User_States } from "@/app/types/types";
 import { signIn, useSession } from "next-auth/react";
 import styles from "@/app/register/register.module.css";
 
@@ -17,12 +13,13 @@ const LoginCom = () => {
   const [loading, setLoading] = useState<boolean | null>(false);
   const [adminLoading, setAdminLoading] = useState<boolean | null>(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
   // =>> Check if there is verification true Or Not
   useEffect(() => {
     if (searchParams.get("auth")) {
       if (searchParams.get("auth") === "true") {
-        router.replace("/login");
+        router.replace(`${baseUrl}`);
         setTimeout(() => {
           toast.success("Authorized, You can login now", { duration: 5000 });
         }, 8000);
@@ -33,18 +30,18 @@ const LoginCom = () => {
     if (searchParams.get("error")) {
       if (searchParams.get("error") == "notVerified") {
         setGoogleLoading(false);
-        router.replace(`${process.env.NEXTAUTH_URL}/login`);
+        router.replace(`${baseUrl}/login`);
         toast.error("Email not verified. Check Your Gmail", {
           duration: 6000,
         });
-        router.replace(`${process.env.NEXTAUTH_URL}/login`);
+        router.replace(`${baseUrl}/login`);
       } else if (searchParams.get("error") == "NoToken") {
         setGoogleLoading(false);
-        router.replace(`${process.env.NEXTAUTH_URL}/login`);
+        router.replace(`${baseUrl}/login`);
         toast.error("Warning: You Are Not Allowed", {
           duration: 6000,
         });
-        router.replace(`${process.env.NEXTAUTH_URL}/login`);
+        router.replace(`${baseUrl}/login`);
       }
     }
   }, [searchParams, router, googleLoading]);
@@ -52,7 +49,8 @@ const LoginCom = () => {
   // =>> Redirect to home if session is authenticated
   useEffect(() => {
     if (session.data?.user?.email) {
-      router.replace(`${process.env.NEXTAUTH_URL}/`);
+      // router.replace(`${baseUrl}`, undefined);
+      console.log(session.data?.user);
     }
   }, [session.data?.user, router]);
 
@@ -81,7 +79,7 @@ const LoginCom = () => {
           });
           setLoading(false);
         } else if (res.error === "User not verified") {
-          console.log("User not verified");
+          console.log(res.error);
           toast.error("Email not verified. Check Your Gmail", {
             duration: 6000,
           });
@@ -96,7 +94,7 @@ const LoginCom = () => {
         }
       }
       if (res?.ok) {
-        router.replace(`${process.env.NEXTAUTH_URL}/?status=welcom`);
+        router.replace(`${baseUrl}/?status=welcom`);
         setLoading(false);
       }
     } catch (error) {
@@ -111,9 +109,11 @@ const LoginCom = () => {
     setGoogleLoading(true);
     const res = await signIn("google", { redirect: false });
     console.log(res);
-
+    if (res?.ok) {
+      router.replace(`${baseUrl}/`); // Replace with the desired route
+    }
     if (res?.error) {
-      toast.error("Google Sign-In failed!");
+      toast.error("Google Sign-In failed!", res?.error as any);
     }
   };
 

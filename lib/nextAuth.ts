@@ -81,15 +81,16 @@ export const authOptions: AuthOptions = {
         let dbUser = await prisma.user.findUnique({
           where: { email: profile!.email },
         });
-        const baseUrl = process.env.NEXTAUTH_URL;
+        const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
         if (!dbUser) {
-          return `${baseUrl}/register?error=notFound`; // This triggers the error page
+          throw new Error("notFound"); // Custom error message
         }
         if (dbUser && !dbUser.verified) {
           sendEmail(profile?.email!);
-          return `${baseUrl}/login?error=notVerified`; // This triggers the error page
+          throw new Error("notVerified"); // Custom error message
         }
+        console.log(dbUser);
 
         // Allow sign-in
         return true;
