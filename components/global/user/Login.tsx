@@ -13,6 +13,7 @@ const LoginCom = () => {
   const [loading, setLoading] = useState<boolean | null>(false);
   const [adminLoading, setAdminLoading] = useState<boolean | null>(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
   // =>> Check if there is verification true Or Not
@@ -152,7 +153,7 @@ const LoginCom = () => {
         }
       }
       if (res?.ok) {
-        router.replace("/?status=welcom");
+        router.replace(`${baseUrl}/?status=welcom`);
         setAdminLoading(false);
       }
     } catch (error) {
