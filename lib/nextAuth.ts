@@ -47,7 +47,7 @@ export const authOptions: AuthOptions = {
         );
         if (!isPasswordValid) throw new Error("Invalid password");
         if (user && !user.verified) {
-          sendEmail(user?.email);
+          await sendEmail(user?.email);
           throw new Error("User not verified");
         }
 
@@ -87,7 +87,7 @@ export const authOptions: AuthOptions = {
           throw new Error("notFound"); // Custom error message
         }
         if (dbUser && !dbUser.verified) {
-          sendEmail(profile?.email!);
+          await sendEmail(profile?.email!);
           throw new Error("notVerified"); // Custom error message
         }
         console.log(dbUser);
