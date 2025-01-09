@@ -113,7 +113,7 @@ export const POST = async (request: NextRequest) => {
     const testResult = await transport.verify();
     console.log(testResult);
 
-    const verificationLink = `http://localhost:3000/api/verify-email?email=${newUser.email}`;
+    const verificationLink = `${process.env.NEXTAUTH_URL}/api/verify-email?email=${newUser.email}`;
 
     const sendResul = await transport.sendMail({
       from: process.env.SMTP_USER,

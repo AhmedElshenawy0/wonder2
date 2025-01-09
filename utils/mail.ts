@@ -26,7 +26,7 @@ export const sendEmail = async (email: string) => {
       expiresIn: "1h",
     });
 
-    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXTAUTH_URL;
 
     const verifyLink = `${baseUrl}/api/verify-email?token=${token}`;
 
