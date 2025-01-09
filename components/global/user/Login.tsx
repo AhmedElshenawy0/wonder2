@@ -16,41 +16,41 @@ const LoginCom = () => {
 
   const baseUrl = process.env.NEXTAUTH_URL;
 
-  // =>> Check if there is verification true Or Not
+  // ==>> Check if there is verification true Or Not
   useEffect(() => {
     if (searchParams.get("auth")) {
       if (searchParams.get("auth") === "true") {
-        router.replace(`${baseUrl}`);
+        router.push(process.env.NEXTAUTH_URL as string);
         setTimeout(() => {
           toast.success("Authorized, You can login now", { duration: 5000 });
         }, 8000);
       }
     }
 
-    // =>> Redirect To Login If error Is Not verified Or No Token
-    if (searchParams.get("error")) {
-      if (searchParams.get("error") == "notVerified") {
-        setGoogleLoading(false);
-        router.replace(`${baseUrl}/login`);
-        toast.error("Email not verified. Check Your Gmail", {
-          duration: 6000,
-        });
-        router.replace(`${baseUrl}/login`);
-      } else if (searchParams.get("error") == "NoToken") {
-        setGoogleLoading(false);
-        router.replace(`${baseUrl}/login`);
-        toast.error("Warning: You Are Not Allowed", {
-          duration: 6000,
-        });
-        router.replace(`${baseUrl}/login`);
-      }
-    }
+    // ==>> Redirect To Login If error Is Not verified Or No Token
+    // if (searchParams.get("error")) {
+    //   if (searchParams.get("error") == "notVerified") {
+    //     setGoogleLoading(false);
+    //     router.replace(`${baseUrl}/login`);
+    //     toast.error("Email not verified. Check Your Gmail", {
+    //       duration: 6000,
+    //     });
+    //     router.replace(`${baseUrl}/login`);
+    //   } else if (searchParams.get("error") == "NoToken") {
+    //     setGoogleLoading(false);
+    //     router.replace(`${baseUrl}/login`);
+    //     toast.error("Warning: You Are Not Allowed", {
+    //       duration: 6000,
+    //     });
+    //     router.replace(`${baseUrl}/login`);
+    //   }
+    // }
   }, [searchParams, router, googleLoading]);
 
   // =>> Redirect to home if session is authenticated
   useEffect(() => {
     if (session.data?.user?.email) {
-      router.push(`${baseUrl}`);
+      router.push(process.env.NEXTAUTH_URL as string);
       console.log(session.data?.user);
     }
   }, [session.data?.user, router]);
@@ -72,8 +72,12 @@ const LoginCom = () => {
         password: formData.password,
       });
       if (res?.error) {
-        if (res.error === "User does not exist") {
+        if (
+          res.error === "User does not exist" ||
+          res.error === "Invalid password"
+        ) {
           console.log("User does not exist");
+          console.log(res.error);
 
           toast.error("Invalid email or password", {
             duration: 6000,
@@ -111,7 +115,7 @@ const LoginCom = () => {
     const res = await signIn("google", { redirect: false });
     console.log(res);
     if (res?.ok) {
-      router.replace(`${baseUrl}/`); // Replace with the desired route
+      router.replace(`${baseUrl}`); // Replace with the desired route
     }
     if (res?.error) {
       toast.error("Google Sign-In failed!", res?.error as any);
@@ -163,7 +167,7 @@ const LoginCom = () => {
   };
   return (
     <div
-      className={`mt-[83px] flex justify-center items-center  min-h-screen p-3 ${styles.linearBg}`}
+      className={`mt-[83px] testy flex justify-center items-center  min-h-screen p-3 ${styles.linearBg}`}
     >
       <div className="bg-white rounded-2xl shadow-xl p-3 w-full max-w-md">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6 cursor-pointer">
