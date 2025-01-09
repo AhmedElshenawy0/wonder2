@@ -14,7 +14,7 @@ const LoginCom = () => {
   const [adminLoading, setAdminLoading] = useState<boolean | null>(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXTAUTH_URL;
 
   // =>> Check if there is verification true Or Not
   useEffect(() => {
@@ -50,7 +50,7 @@ const LoginCom = () => {
   // =>> Redirect to home if session is authenticated
   useEffect(() => {
     if (session.data?.user?.email) {
-      // router.replace(`${baseUrl}`, undefined);
+      router.push(`${baseUrl}`);
       console.log(session.data?.user);
     }
   }, [session.data?.user, router]);
