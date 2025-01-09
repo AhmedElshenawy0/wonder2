@@ -23,8 +23,8 @@ declare module "next-auth" {
 export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: (process.env.GOOGLE_CLIENT_ID as string)!,
-      clientSecret: (process.env.GOOGLE_CLIENT_SECRET as string)!,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       name: "credentials",
@@ -33,41 +33,36 @@ export const authOptions: AuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        try {
-          if (!credentials) return null;
-          const user = await prisma.user.findUnique({
-            where: { email: credentials?.email },
-          });
-          if (!user?.email) {
-            throw new Error("User does not exist");
-          }
-
-          const isPasswordValid = await bcrypt.compare(
-            credentials!.password,
-            user!.password
-          );
-          if (!isPasswordValid) throw new Error("Invalid password");
-          if (user && !user.verified) {
-            sendEmail(user?.email);
-            throw new Error("User not verified");
-          }
-
-          const userWithAdmin = {
-            id: user.id.toString(), // Ensure id is a string
-            email: user.email,
-            userName: user.userName,
-            phone: user.phone,
-            company: user.company,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-            isAdmin: user.isAdmin,
-            verified: user.verified,
-          };
-          return userWithAdmin as User;
-        } catch (error) {
-          console.error("Error in authorize:");
-          throw new Error("Authentication failed");
+        if (!credentials) return null;
+        const user = await prisma.user.findUnique({
+          where: { email: credentials?.email },
+        });
+        if (!user?.email) {
+          throw new Error("User does not exist");
         }
+
+        const isPasswordValid = await bcrypt.compare(
+          credentials!.password,
+          user!.password
+        );
+        if (!isPasswordValid) throw new Error("Invalid password");
+        if (user && !user.verified) {
+          sendEmail(user?.email);
+          throw new Error("User not verified");
+        }
+
+        const userWithAdmin = {
+          id: user.id.toString(), // Ensure id is a string
+          email: user.email,
+          userName: user.userName,
+          phone: user.phone,
+          company: user.company,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+          isAdmin: user.isAdmin,
+          verified: user.verified,
+        };
+        return userWithAdmin as User;
       },
     }),
   ],
@@ -86,7 +81,7 @@ export const authOptions: AuthOptions = {
         let dbUser = await prisma.user.findUnique({
           where: { email: profile!.email },
         });
-        const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+        const baseUrl = process.env.NEXTAUTH_URL;
 
         if (!dbUser) {
           return `${baseUrl}/register?error=notFound`; // This triggers the error page

@@ -2,7 +2,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
-const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+const baseUrl = process.env.NEXTAUTH_URL;
 
 export async function GET(req: NextRequest) {
   const token: any = req.nextUrl.searchParams.get("token");
