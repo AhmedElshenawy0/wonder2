@@ -27,11 +27,6 @@ const LoginCom = () => {
       }
     }
 
-    useEffect(() => {
-      if (session?.status == "authenticated" && session?.data?.user?.email) {
-        router.replace("/");
-      }
-    }, [session.status]);
     // ==>> Redirect To Login If error Is Not verified Or No Token
     // if (searchParams.get("error")) {
     //   if (searchParams.get("error") == "notVerified") {
@@ -51,7 +46,11 @@ const LoginCom = () => {
     //   }
     // }
   }, [searchParams, router, googleLoading]);
-
+  useEffect(() => {
+    if (session?.status == "authenticated" && session?.data?.user?.email) {
+      router.replace("/");
+    }
+  }, [session.status]);
   // ==> Login process with credintials
 
   const [formData, setFormData] = useState({
