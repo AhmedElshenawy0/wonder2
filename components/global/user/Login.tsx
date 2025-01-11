@@ -15,42 +15,42 @@ const LoginCom = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const baseUrl = process.env.NEXTAUTH_URL;
+  const currentPath = window.location.pathname; // Get the path without the query string
 
   // ==>> Check if there is verification true Or Not
   useEffect(() => {
-    if (searchParams.get("auth")) {
-      if (searchParams.get("auth") === "true") {
-        router.replace(process.env.NEXTAUTH_URL as string);
-        setTimeout(() => {
-          toast.success("Authorized, You can login now", { duration: 5000 });
-        }, 8000);
-      }
-    }
-
-    // ==>> Redirect To Login If error Is Not verified Or No Token
-    // if (searchParams.get("error")) {
-    //   if (searchParams.get("error") == "notVerified") {
-    //     setGoogleLoading(false);
-    //     router.replace(`${baseUrl}/login`);
-    //     toast.error("Email not verified. Check Your Gmail", {
-    //       duration: 6000,
-    //     });
-    //     router.replace(`${baseUrl}/login`);
-    //   } else if (searchParams.get("error") == "NoToken") {
-    //     setGoogleLoading(false);
-    //     router.replace(`${baseUrl}/login`);
-    //     toast.error("Warning: You Are Not Allowed", {
-    //       duration: 6000,
-    //     });
-    //     router.replace(`${baseUrl}/login`);
+    // if (searchParams.get("auth")) {
+    //   if (searchParams.get("auth") === "true") {
+    //     router.replace(baseUrl as string);
+    //     setTimeout(() => {
+    //       toast.success("Authorized, You can login now", { duration: 5000 });
+    //     }, 8000);
     //   }
     // }
+
+    if (searchParams.get("error")) {
+      if (searchParams.get("error") == "notVerified") {
+        setGoogleLoading(false);
+        router.replace(currentPath);
+        toast.error("Email not verified. Check Your Gmail", {
+          duration: 6000,
+        });
+        router.replace(currentPath);
+      } else if (searchParams.get("error") == "NoToken") {
+        setGoogleLoading(false);
+        router.replace(currentPath);
+        toast.error("Warning: You Are Not Allowed", {
+          duration: 6000,
+        });
+        router.replace(currentPath);
+      }
+    }
   }, [searchParams, router, googleLoading]);
   useEffect(() => {
     if (session?.status == "authenticated" && session?.data?.user?.email) {
       router.replace("/");
     }
-  }, [session.status]);
+  }, [session, router]);
   // ==> Login process with credintials
 
   const [formData, setFormData] = useState({
