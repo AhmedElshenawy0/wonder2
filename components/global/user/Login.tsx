@@ -28,24 +28,25 @@ const LoginCom = () => {
     }
 
     // ==>> Redirect To Login If error Is Not verified Or No Token
-    // if (searchParams.get("error")) {
-    //   if (searchParams.get("error") == "notVerified") {
-    //     setGoogleLoading(false);
-    //     router.replace(`${baseUrl}/login`);
-    //     toast.error("Email not verified. Check Your Gmail", {
-    //       duration: 6000,
-    //     });
-    //     router.replace(`${baseUrl}/login`);
-    //   } else if (searchParams.get("error") == "NoToken") {
-    //     setGoogleLoading(false);
-    //     router.replace(`${baseUrl}/login`);
-    //     toast.error("Warning: You Are Not Allowed", {
-    //       duration: 6000,
-    //     });
-    //     router.replace(`${baseUrl}/login`);
-    //   }
-    // }
+    if (searchParams.get("error")) {
+      if (searchParams.get("error") == "notVerified") {
+        setGoogleLoading(false);
+        router.replace(`${baseUrl}/login`);
+        toast.error("Email not verified. Check Your Gmail", {
+          duration: 6000,
+        });
+        router.replace(`${baseUrl}/login`);
+      } else if (searchParams.get("error") == "NoToken") {
+        setGoogleLoading(false);
+        router.replace(`${baseUrl}/login`);
+        toast.error("Warning: You Are Not Allowed", {
+          duration: 6000,
+        });
+        router.replace(`${baseUrl}/login`);
+      }
+    }
   }, [searchParams, router, googleLoading]);
+
   useEffect(() => {
     if (session?.status == "authenticated" && session?.data?.user?.email) {
       router.replace("/");
