@@ -84,7 +84,8 @@ export const authOptions: AuthOptions = {
         const baseUrl = process.env.NEXTAUTH_URL;
 
         if (!dbUser) {
-          throw new Error("notFound"); // Custom error message
+          // throw new Error("notFound"); // Custom error message
+          return `${baseUrl}/login?error=notFound`;
         }
         if (dbUser && !dbUser.verified) {
           await sendEmail(profile?.email!);
