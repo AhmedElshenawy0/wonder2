@@ -7,6 +7,7 @@ import { JWTPayload, UserRegister } from "@/utils/dots";
 import { generateJWT } from "@/utils/generateToken";
 import { serialize } from "cookie";
 import { User } from "@/app/types/types";
+import { sendEmail } from "@/utils/mail";
 
 /**
  * @method POST
@@ -17,13 +18,12 @@ import { User } from "@/app/types/types";
 
 export const POST = async (request: NextRequest) => {
   try {
-    // ==> Get User Data From Request
+    //=> Get User Data From Request
     const body: UserRegister = await request.json();
 
-    // ==> Validation
+    //=> Validation
     const validation = userSchema.safeParse(body);
 
-    // ==> Validation
     if (!validation.success) {
       return NextResponse.json(
         { message: validation.error.errors[0].message },
@@ -31,7 +31,7 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    // ==> Check If User Exist
+    //=> Check if user exist
     const user = await prisma.user.findUnique({ where: { email: body.email } });
 
     if (user) {
@@ -42,40 +42,12 @@ export const POST = async (request: NextRequest) => {
         { status: 409 }
       );
     }
-    // if (user) {
-    //   //==>> Generate token
 
-    //   const jwtPayload: JWTPayload = {
-    //     id: user.id,
-    //     userName: user.userName,
-    //     isAdmin: user.isAdmin,
-    //   };
-
-    //   const token = generateJWT(jwtPayload);
-
-    //   const cookie = serialize("token", token, {
-    //     httpOnly: true,
-    //     secure: process.env.NODE_ENV === "production",
-    //     sameSite: "strict",
-    //     path: "/",
-    //     maxAge: 60 * 60 * 24 * 30, // 30 days
-    //   });
-
-    //   // ==> Send Response After Create User
-
-    //   return NextResponse.json(
-    //     {
-    //       user,
-    //       token,
-    //     },
-    //     { status: 200, headers: { "Set-Cookie": cookie } }
-    //   );
-    // }
-
+    //=> Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(body.password, salt);
 
-    // ==> Create User
+    //=> Create User
     const newUser: User = await prisma.user.create({
       data: {
         userName: body.userName,
@@ -92,6 +64,7 @@ export const POST = async (request: NextRequest) => {
       },
     });
 
+    //=> Check if New User is already created
     if (!newUser) {
       return NextResponse.json(
         {
@@ -101,63 +74,13 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.SMTP_USER, // Your Gmail address
-        pass: process.env.SMTP_PASSWORD, // App password or OAuth token
-      },
-    });
-
-    // Send the email
-    const testResult = await transport.verify();
-    console.log(testResult);
-
-    const verificationLink = `${process.env.NEXTAUTH_URL}/api/verify-email?email=${newUser.email}`;
-
-    const sendResul = await transport.sendMail({
-      from: process.env.SMTP_USER,
-      to: `${newUser?.email}`,
-      subject: "Verify Your Email",
-      html: `
-                <p>Hello, ${newUser?.userName}</p>
-                <p>Thanks for registering! Please click the link below to verify your email address:</p>
-                <a href="${verificationLink}">Verify Email</a>
-                <p>If you didn’t register for this account, you can ignore this email.</p>
-              `,
-    });
-
-    if (!sendResul.accepted[0]) {
-      return NextResponse.json(
-        { message: "Error while send verification link to Gmail" },
-        { status: 400 }
-      );
-    }
-    console.log(sendResul.accepted[0]);
-    //==>> Generate token
-
-    // const jwtPayload: JWTPayload = {
-    //   id: newUser.id,
-    //   userName: newUser.userName,
-    //   isAdmin: newUser.isAdmin,
-    // };
-
-    // const token = generateJWT(jwtPayload);
-
-    // const cookie = serialize("token", token, {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === "production",
-    //   sameSite: "strict",
-    //   path: "/",
-    //   maxAge: 60 * 60 * 24 * 30, // 30 days
-    // });
+    //=> sendEmail function that send Verfication code to user's gmail
+    await sendEmail(newUser?.email!);
 
     // ==> Send Response After Create User
-
     return NextResponse.json(
       {
         user: newUser,
-        accepted: sendResul.accepted[0],
       },
       { status: 201 }
     );
