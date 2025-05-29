@@ -49,7 +49,7 @@ const BannerContent = () => {
         src={image1}
         alt="logo"
         style={{ objectFit: "cover" }}
-        className="w-[100%] md:w-[50%] image-1"
+        className="w-[100%] hidden md:block md:w-[50%] image-1"
       />
       <Image
         src={image2}

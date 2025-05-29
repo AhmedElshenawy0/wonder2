@@ -6,13 +6,4 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-/**
- *
- * @param name person name
- * @param greeting greeting
- */
-const sayHello = (name: string, greeting: string) => {
-  console.log(greeting, name);
-};
-
 export default cloudinary;

@@ -1,7 +1,6 @@
 .banner {
   width: 100%;
   position: relative;
-  height: fit-content;
 }
 
 .banner::before {
@@ -35,6 +34,12 @@
   }
 }
 @media (max-width: 767px) {
+  .banner {
+    height: calc(100vh - 70px);
+    background-image: url("/images/Choker Neck Dip Hem Striped Top.webp");
+    background-position: top;
+    background-size: cover;
+  }
   .image-1,
   .image-2 {
     aspect-ratio: 1/1.23;
