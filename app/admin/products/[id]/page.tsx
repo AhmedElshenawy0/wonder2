@@ -4,13 +4,14 @@ import { States } from "@/app/store/slices/product-slice";
 import { ProductType } from "@/app/types/types";
 import dynamic from "next/dynamic";
 // import Product from "@/components/one-product/Product";
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { lazy, Suspense, useEffect, use } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const ProductComp = dynamic(() => import("@/components/one-product/Product"));
 
-const page = ({ params }: { params: { id: number } }) => {
+const page = (props: { params: Promise<{ id: number }> }) => {
+  const params = use(props.params);
   const { oneProduct } = useSelector(
     (state: { productsReducer: States }) => state.productsReducer
   );

@@ -1,6 +1,6 @@
 "use client";
 import { States } from "@/app/store/slices/product-slice";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, use } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styles from "./product.module.css";
@@ -32,7 +32,8 @@ const Swiper = dynamic(() => import("swiper/react").then((mod) => mod.Swiper), {
   ssr: false,
 });
 
-const ProductPage = ({ params }: { params: { productId: number } }) => {
+const ProductPage = (props: { params: Promise<{ productId: number }> }) => {
+  const params = use(props.params);
   const { oneProduct, allProducts } = useSelector(
     (state: { productsReducer: States }) => state.productsReducer
   );

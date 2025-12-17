@@ -1,10 +1,8 @@
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) => {
+export const GET = async (req: NextRequest, props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   if (!params.id) {
     return NextResponse.json(
       { message: "There is no id provided" },

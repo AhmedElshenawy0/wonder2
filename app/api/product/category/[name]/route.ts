@@ -11,14 +11,13 @@ import { NextRequest, NextResponse } from "next/server";
 // Get Products By Category
 export const GET = async (
   req: NextRequest,
-  {
-    params,
-  }: {
-    params: {
+  props: {
+    params: Promise<{
       name: string;
-    };
+    }>;
   }
 ) => {
+  const params = await props.params;
   try {
     const products = await prisma.product.findMany({
       where: { category: params.name },

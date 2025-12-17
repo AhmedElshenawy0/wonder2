@@ -9,11 +9,12 @@ import { NextRequest, NextResponse } from "next/server";
  * @access public
  */
 type Params_Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
-export const GET = async (req: NextRequest, { params }: Params_Props) => {
+export const GET = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   try {
     const product = await prisma.product.findUnique({
       where: { id: +params.id },
@@ -46,7 +47,8 @@ export const GET = async (req: NextRequest, { params }: Params_Props) => {
  * @access public
  */
 
-export const DELETE = async (req: NextRequest, { params }: Params_Props) => {
+export const DELETE = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   try {
     const productId = Number(params.id);
     if (isNaN(productId)) {
@@ -85,7 +87,8 @@ export const DELETE = async (req: NextRequest, { params }: Params_Props) => {
  * @access public
  */
 
-export const PUT = async (req: NextRequest, { params }: Params_Props) => {
+export const PUT = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   try {
     const product = await prisma.product.findUnique({
       where: { id: +params.id },

@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 import { verifyTokenFn } from "@/utils/verifyToken";
 
 type Params_Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 /**
@@ -16,7 +16,8 @@ type Params_Props = {
  * @access public
  */
 
-export const GET = async (req: NextRequest, { params }: Params_Props) => {
+export const GET = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   const user = await prisma.user.findUnique({ where: { id: +params.id } });
 
   // Check If User Exist
@@ -37,7 +38,8 @@ export const GET = async (req: NextRequest, { params }: Params_Props) => {
  * @access public
  */
 
-export const PUT = async (req: NextRequest, { params }: Params_Props) => {
+export const PUT = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   const user = await prisma.user.findUnique({ where: { id: +params.id } });
 
   const body = await req.json();
@@ -93,7 +95,8 @@ export const PUT = async (req: NextRequest, { params }: Params_Props) => {
  * @access public
  */
 
-export const DELETE = async (req: NextRequest, { params }: Params_Props) => {
+export const DELETE = async (req: NextRequest, props: Params_Props) => {
+  const params = await props.params;
   const user = await prisma.user.findUnique({ where: { id: +params.id } });
 
   // Check if user doesn't exist

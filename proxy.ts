@@ -6,7 +6,7 @@ import { getToken } from "next-auth/jwt";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-export const middleware = async (req: NextRequest) => {
+export const proxy = async (req: NextRequest) => {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
