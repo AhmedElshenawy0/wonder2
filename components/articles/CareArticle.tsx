@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React, { useEffect } from "react";
 import image2 from "@/public/images/care1 (3).webp";
 import image3 from "@/public/images/care1 (1).webp";
 import image4 from "@/public/images/care1 (1).webp";
