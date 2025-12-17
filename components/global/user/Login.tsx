@@ -15,8 +15,13 @@ const LoginCom = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 
   const baseUrl = process.env.NEXTAUTH_URL;
-  const currentPath = window.location.pathname; // Get the path without the query string
+  // const currentPath = window.location.pathname; // Get the path without the query string
 
+  const [currentPath, setCurrentPath] = useState("");
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+  }, []);
   // ==>> Check if there is verification true Or Not
   useEffect(() => {
     if (searchParams.get("auth")) {
